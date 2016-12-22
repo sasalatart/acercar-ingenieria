@@ -1,0 +1,2 @@
+$('#articles-index').html("<%= escape_javascript(render 'article_list') %>");
+$('html, body').animate({ scrollTop: $("#articles-index").offset().top }, 1000);

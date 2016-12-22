@@ -1,0 +1,38 @@
+<% if notification.notifyable_type == Topic.model_name %>
+  <li>
+    <%= status.html_safe + " #{notification.notificator.complete_name}" %>
+  <% if notification.action == 'Comment' %>
+    <%= " comentó en " %>
+  <% elsif notification.action == 'Create' && notification.notificator_admin_rank == -1 %>
+    <%= ", Administrador de la plataforma, creó el tema " %>
+  <% elsif notification.action == 'Create' && notification.notificator_admin_rank != -1 && notification.notificator_admin_rank != -0 %>
+    <%= ", Administrador del Major #{Major.find_by(id: notification.notificator_admin_rank).name}, creó el tema " %>
+  <% end %>
+    <%= link_to notification.notifyable.title, topic_path(notification.notifyable) %>
+    <%= "#{notification.created_at.strftime("el día %d/%m/%y a las %H:%M")}." %>
+  </li>
+<% end %>
+
+<% if notification.notifyable_type == VirtualRoom.model_name %>
+  <li>
+    <%= status.html_safe + " #{notification.notificator.complete_name} comentó en " %>
+    <%= link_to notification.notifyable.title, virtual_room_path(notification.notifyable) %>
+    <%= "#{notification.created_at.strftime("el día %d/%m/%y a las %H:%M")}." %>
+  </li>
+<% end %>
+
+<% if notification.notifyable_type == Major.model_name %>
+  <li>
+    <%= status.html_safe + " #{notification.notificator.complete_name} comentó en " %>
+    <%= link_to notification.notifyable.name, major_path(notification.notifyable) %>
+    <%= "#{notification.created_at.strftime("el día %d/%m/%y a las %H:%M")}." %>
+  </li>
+<% end %>
+
+<% if notification.notifyable_type == Article.model_name %>
+  <li>
+    <%= status.html_safe + " #{notification.notificator.complete_name} comentó en " %>
+    <%= link_to notification.notifyable.title, article_path(notification.notifyable) %>
+    <%= "#{notification.created_at.strftime("el día %d/%m/%y a las %H:%M")}." %>
+  </li>
+<% end %>

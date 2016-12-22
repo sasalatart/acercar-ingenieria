@@ -1,0 +1,161 @@
+<h1>Administradores</h1>
+
+<div id="ai-admins" class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <%= link_to '#ai', data: { parent: '#ai-admins', toggle: 'collapse' } do %>
+          <i class="fa fa-plus"></i>
+          Administradores de Acercar Ingeniería
+        <% end %>
+      </h4>
+    </div>
+
+    <div id="ai" class="panel-collapse collapse">
+      <div class="panel-body">
+        <%= form_tag create_admin_path, class: 'form-inline center-align' do %>
+          <fieldset>
+            <legend>Agregar Administrador de Acercar Ingeniería</legend>
+            <div class="form-group">
+              <%= label_tag :email, 'Correo', class: 'control-label' %>
+              <%= text_field_tag :email, nil, pattern: ".*[@](uc|puc|ing.puc)\.cl", required: true, class: 'form-control' %>
+              <%= submit_tag 'Agregar', class: 'button-link button-large' do %>
+                <i class="fa da-user-plus"></i>
+                Agregar
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <table class="table table-hover">
+          <thead>
+            <th>Nombre</th>
+            <th>e-mail</th>
+            <th>Acción</th>
+          </thead>
+          <tbody>
+            <% @admins.each do |admin| %>
+              <tr>
+                <td><%= admin.complete_name %></td>
+                <td><%= admin.email %></td>
+                <td><%= link_to('destituir', delete_admin_path(user_id: admin.id),
+                                method: :delete,
+                                class: 'button-link button-inline red') if admin != current_user %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="major-admins" class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <%= link_to '#major', data: { parent: '#major-admins', toggle: 'collapse' } do %>
+          <i class="fa fa-plus"></i>
+          Administradores de Majors
+        <% end %>
+      </h4>
+    </div>
+
+    <div id="major" class="panel-collapse collapse">
+      <div class="panel-body">
+        <%= form_tag create_major_admin_path, { class: 'form-inline center-align' } do %>
+          <fieldset>
+            <legend>Agregar Administrador de Major</legend>
+            <div class="form-group">
+              <%= label_tag :email, 'Correo', class: 'control-label' %>
+              <%= text_field_tag :email, "", pattern: ".*[@](uc|puc|ing.puc)\.cl", required: true, class: 'form-control' %>
+              <%= collection_select nil, :major_id,  Major.all, :id, :name, {prompt: "Elija Major"}, class: 'form-control' %>
+              <%= submit_tag 'Agregar', class: 'button-link button-large' do %>
+                <i class="fa da-user-plus"></i>
+                Agregar
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <table class="table table-hover">
+          <thead>
+            <th>Nombre</th>
+            <th>e-mail</th>
+            <th>Major</th>
+            <th>Acción</th>
+          </thead>
+          <tbody>
+            <% @major_admins.each do |major_admin| %>
+              <tr>
+                <% user = major_admin.user %>
+                <% major = major_admin.major %>
+                <td><%= user.complete_name %></td>
+                <td><%= user.email %></td>
+                <td><%= major.name %></td>
+                <td><%= link_to('destituir', delete_major_admin_path(user_id: user.id, major_id: major.id),
+                                method: :delete,
+                                class: 'button-link button-inline red') if user != current_user %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="distinguished-section-admins" class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <%= link_to '#distinguished-section', data: { parent: '#major-admins', toggle: 'collapse' } do %>
+          <i class="fa fa-plus"></i>
+          Administradores de Secciones Destacadas
+        <% end %>
+      </h4>
+    </div>
+
+    <div id="distinguished-section" class="panel-collapse collapse">
+      <div class="panel-body">
+        <%= form_tag create_distinguished_section_admin_path, class: 'form-inline center-align' do %>
+          <fieldset>
+            <legend>Agregar Administrador de Sección Destacada</legend>
+            <div class="form-group">
+              <%= label_tag :email, "Correo", class: 'control-label' %>
+              <%= text_field_tag :email, "", pattern: ".*[@](uc|puc|ing.puc)\.cl", required: true, class: 'form-control' %>
+              <%= collection_select nil, :distinguished_section_id,  DistinguishedSection.all, :id, :name, { prompt: "Elija Sección Destacada" }, class: 'form-control' %>
+              <%= submit_tag 'Agregar', class: 'button-link button-large' do %>
+                <i class="fa da-user-plus"></i>
+                Agregar
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <table class="table table-hover">
+          <thead>
+            <th>Nombre</th>
+            <th>e-mail</th>
+            <th>Sección Destacada</th>
+            <th>Acción</th>
+          </thead>
+          <tbody>
+            <% @distinguished_section_admins.each do |distinguished_section_admin| %>
+              <tr>
+                <% user = distinguished_section_admin.user %>
+                <% distinguished_section = distinguished_section_admin.distinguished_section %>
+                <td><%= user.complete_name %></td>
+                <td><%= user.email %></td>
+                <td><%= distinguished_section.name %></td>
+                <td><%= link_to('destituir', delete_distinguished_section_admin_path(user_id: user.id, distinguished_section_id: distinguished_section.id),
+                                method: :delete,
+                                class: 'button-link button-inline red') if user != current_user %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

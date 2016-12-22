@@ -1,0 +1,20 @@
+<dl class="dl-horizontal">
+  <h1><%= @landing_photo.title %></h1>
+  <div class="index-size center-align">
+    <%= image_tag(@landing_photo.image, width: '960px') %>
+  </div>
+  <div>
+    <p><%= @landing_photo.text %></p>
+  </div>
+</dl>
+
+<% if (user_signed_in? and current_user.admin?) %>
+  <div class="center-align">
+    <%= link_to 'Volver', landing_photos_path, class: 'button-link button-large' %>
+    <%= link_to 'Editar', edit_landing_photo_path(@landing_photo), class: 'button-link button-large orange' %>
+    <%= link_to 'Eliminar', landing_photo_path(@landing_photo),
+                method: :delete,
+                data: { confirm: '¿Está seguro?' },
+                class: 'button-link button-large red' %>
+  </div>
+<% end -%>

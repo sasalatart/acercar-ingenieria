@@ -1,0 +1,13 @@
+<% if @virtual_rooms %>
+  $loader = $('#last-row-loader');
+  $loader.show();
+  setTimeout(function() {
+    <% @virtual_rooms.each do |virtual_room| %>
+      if ($('[data-id="<%= virtual_room.id %>"]').length == 0) {
+        $('.resource:last').after("<%= j render partial: 'virtual_room', locals: { virtual_room: virtual_room, header: 'h3', description: virtual_room.description.capitalize.slice(0..300) } %>");
+        $('.resource:last').hide().fadeIn(500);
+      }
+    <% end %>
+    $loader.hide('hide');
+  }, 1000);
+<% end %>

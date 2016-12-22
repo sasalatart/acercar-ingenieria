@@ -1,0 +1,23 @@
+var newDiv = '<%= escape_javascript render partial: "comments/comment_#{@commentable.class.name.underscore}", object: @comment %>';
+
+$('#comments-view i').remove();
+
+if ($('ul.pagination a[rel*="start"]').length) {
+  $('ul.pagination a[rel*="start"]').click();
+} else {
+  if ($('ul.pagination a[rel*="next"]').length) {
+    $('#comments-view .comment').last().remove();
+  }
+  $('#comments-view').prepend(newDiv);
+}
+
+$('#comments-view .comment').first().hide();
+$('html,body').animate(
+  { scrollTop: $("#comments-view").offset().top}, 1000,
+  function() {
+    $('#comments-view .comment').first().show('slow');
+  });
+
+$('.new_comment').each (function(){
+  this.reset();
+});

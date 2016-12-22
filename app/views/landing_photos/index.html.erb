@@ -1,0 +1,43 @@
+<h1>Fotos del inicio</h1>
+
+<div class="center-align-space-around">
+  <%= link_to 'Crear foto de inicio', new_landing_photo_path,
+              class: 'button-link button-large' %>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-sm-2">¿Pinned?</th>
+      <th class="col-sm-8">Imagen</th>
+      <th class="col-sm-2">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @landing_photos.each do |landing_photo| %>
+      <tr>
+        <td>
+          <% if landing_photo.pinned? %>
+            <%= image_tag('full_star.png') %>
+          <% else %>
+            <%= image_tag('empty_star.png') %>
+          <% end -%>
+        </td>
+        <td>
+          <%= link_to image_tag(landing_photo.image, width: '150px'), landing_photo_path(landing_photo) %>
+        </td>
+        <td>
+          <%= link_to "<i class='fa fa-edit'>Editar</i>".html_safe,
+                      edit_landing_photo_path(landing_photo),
+                      class: 'button-link button-inline orange' %>
+
+          <%= link_to "<i class='fa fa-remove'>Eliminar</i>".html_safe,
+                      landing_photo_path(landing_photo),
+                      method: :delete,
+                      data: { confirm: '¿Está seguro?' },
+                      class: 'button-link button-inline red' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

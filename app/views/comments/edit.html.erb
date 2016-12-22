@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <h1>Editar Comentario</h1>
+  <%= render partial: 'comments/form',
+             locals: { commentable: @topic,
+                       comment: @comment, remote: false } %>
+<% end %>

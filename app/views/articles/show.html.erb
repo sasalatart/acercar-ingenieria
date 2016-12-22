@@ -1,0 +1,93 @@
+<div class="page-header">
+  <h1 class="center-align-space-between">
+    <%= @article.title %>
+
+    <span>
+      <% if (user_signed_in? and current_user.admin?) or @sub_admin %>
+        <% if @article.major %>
+          <%= link_to raw('<i class="fa fa-edit"></i> Editar'),
+                      edit_major_article_path(@article.major, @article),
+                      class: 'button-link button-medium orange' %>
+          <%= link_to raw('<i class="fa fa-times"></i> Eliminar'),
+                      major_article_path(@article.major, @article),
+                      class: 'button-link button-medium red',
+                      method: :delete,
+                      data: { confirm: '¿Está seguro?' } %>
+        <% else %>
+          <%= link_to raw('<i class="fa fa-edit"></i> Editar'),
+                      edit_article_path(@article),
+                      class: 'button-link button-medium orange' %>
+          <%= link_to raw('<i class="fa fa-times"></i> Eliminar'),
+                      article_path(@article),
+                      class: 'button-link button-medium red',
+                      method: :delete,
+                      data: { confirm: '¿Está seguro?' } %>
+        <% end %>
+      <% end %>
+
+      <% if @article.major %>
+        <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver al Major".html_safe,
+                    major_path(@article.major),
+                    method: :get,
+                    class: 'button-link button-medium' %>
+      <% else %>
+        <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver a Artículos".html_safe,
+                    articles_path,
+                    method: :get,
+                    class: 'button-link button-medium' %>
+      <% end %>
+    </span>
+  </h1>
+
+  <div class="row center-align">
+    <div class="col-xs-4 col-sm-2 center-align">
+      <%= image_tag (@article.image.url(:thumb)), class: 'img-responsive' %>
+    </div>
+
+    <div class="col-xs-8 col-sm-10">
+      <% if @article.categories %>
+        <h2>
+          <%= pluralize(@article.categories.count, "Categoría") %>:
+          <% @article.categories.each do |category| %>
+            <%= "#{category.name} " %>
+          <% end -%>
+        </h2>
+      <% end %>
+
+      <p class="justify-text">
+        <%= @article.short_description %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <%= @article.content.html_safe %>
+</div>
+
+<% if @article.attachments.any? %>
+  <h1>Adjuntos</h1>
+  <div id="attachments">
+    <% @article.attachments.each do |attachment| %>
+      <%= link_to attachment.document.url do %>
+        <div class="attach">
+          <%= image_tag ('clip.png'), size: '25' %>
+          <h5><%= attachment.document.path.split("/").last%></h5>
+          <% if (user_signed_in? and current_user.admin?) or @sub_admin %>
+            <%= link_to delete_attachment_path(attachment.id),
+                        method: :delete,
+                        data: { confirm: '¿Está seguro?' } do %>
+              <span class="red-right">X</span>
+            <% end -%>
+          <% end -%>
+        </div>
+      <% end -%>
+    <% end -%>
+  </div>
+<% end -%>
+
+<div id="comments">
+  <%= render partial: 'comments/comments', locals: { target: 'comment_article' } %>
+</div>
+
+<%= render partial: 'comments/new_comment', locals: { commentable: @article } %>

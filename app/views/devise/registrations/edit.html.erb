@@ -1,0 +1,98 @@
+<%= devise_error_messages! %>
+
+<h1>Editar Perfil</h1>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :first_name, class: 'control-label' %>
+      <%= f.text_field :first_name, class: 'form-control', required: true %>
+      <%= f.errors :first_name %>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <%= f.label :last_name, class: 'control-label' %>
+      <%= f.text_field :last_name, class: 'form-control', required: true %>
+      <%= f.errors :last_name %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :generation, class: 'control-label' %>
+      <%= f.number_field :generation, class: "form-control", required: true %>
+      <%= f.errors :generation %>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <%= f.label :email, class: 'control-label' %>
+      <%= f.email_field :email, class: "form-control", pattern: ".*[@](uc|puc|ing.puc)\.cl", required: true %>
+      <%= f.errors :email %>
+      <span class="hint">
+        Debe ser correo @uc.cl
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :password, "Contraseña", class: 'control-label' %>
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <%= f.errors :password %>
+      <span class="hint">Dejar en blanco si no quiere cambiarla.</span>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <%= f.label :password_confirmation, "Repetir Contaseña", class: 'control-label' %>
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+      <%= f.errors :password_confirmation %>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= f.label :majors, "Majors", class: 'control-label' %>
+    <span class="hint">
+      Marca los Majors de tu gusto. Recibirás correos con información de estos
+      Majors. Si no estás seguro, puedes cambiar esto después.
+    </span></br>
+    <div class="center-align-space-around">
+      <div>
+        <% Major.all[0, Major.count/2].each do |major| %>
+          <div class='super-checkbox'>
+            <% if current_user.majors.include?(major) %>
+              <input type="checkbox" name="user[major_ids][]" id="user_major_ids_<%=major.id%>" value="<%=major.id%>" checked>
+            <% else %>
+              <input type="checkbox" name="user[major_ids][]" id="user_major_ids_<%=major.id%>" value="<%=major.id%>">
+            <% end %>
+            <label for="user_major_ids_<%=major.id%>" data-value="<%=major.id%>"><%=major.name%></label>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <% Major.all[Major.count/2, Major.count].each do |major| %>
+          <div class='super-checkbox'>
+            <% if current_user.majors.include?(major) %>
+              <input type="checkbox" name="user[major_ids][]" id="user_major_ids_<%=major.id%>" value="<%=major.id%>" checked>
+            <% else %>
+              <input type="checkbox" name="user[major_ids][]" id="user_major_ids_<%=major.id%>" value="<%=major.id%>">
+            <% end %>
+            <label for="user_major_ids_<%=major.id%>" data-value="<%=major.id%>"><%=major.name%></label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= f.label :current_password, "Contraseña actual", class: 'control-label' %>
+    <%= f.password_field :current_password, class: "form-control", required: true %>
+    <%= f.errors :current_password %>
+    <span class="hint">Se necesita tu contraseña para validar los cambios.</span>
+  </div>
+
+  <div class="center-align-space-around">
+    <%= link_to "Atrás", :back, class: "button-link button-large" %>
+    <%= f.submit "Actualizar", class: "button-link button-large" %>
+    <%= link_to "Cancelar Cuenta", registration_path(resource_name), data: { confirm: "¿Estás seguro?" }, method: :delete, class: "button-link button-large red" %>
+  </div>
+<% end %>

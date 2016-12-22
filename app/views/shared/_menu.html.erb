@@ -1,0 +1,70 @@
+<div class="menu menu-default container-fluid">
+  <div class="menu menu-default container center-align-space-between">
+    <div class="menu-item dropdown">
+      <%= link_to raw('<i class="fa fa-university"></i> <span>Majors</span>'), majors_path, method: :get %>
+      <ul>
+        <li class="dropdown">
+          <span>Interdisciplinarios</span>
+          <ul class="sub-menu">
+            <% Major.interdisciplinaries.each do |major|%>
+              <%= link_to "<li>#{major.name}</li>".html_safe, major, method: :get %>
+            <% end -%>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <span>Disciplinarios</span>
+          <ul class="sub-menu">
+            <% Major.disciplinaries.each do |major|%>
+              <%= link_to "<li>#{major.name}</li>".html_safe, major, method: :get %>
+            <% end -%>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="menu-item dropdown">
+      <%= link_to raw('<i class="fa fa-book"></i> <span>Artículos</span>'), articles_path, method: :get %>
+      <ul>
+        <%= Category.find_each do |category|%>
+          <%= link_to "<li>#{category.name}</li>".html_safe, category, method: :get %>
+        <% end -%>
+      </ul>
+    </div>
+    <%= link_to raw('<i class="fa fa-comments"></i> <span>Foro</span>'),
+                topics_path,
+                method: :get,
+                class: 'menu-item' %>
+    <%= link_to raw('<i class="fa fa-video-camera"></i> <span>Salas Virtuales</span>'),
+                virtual_rooms_path,
+                method: :get,
+                class: 'menu-item' %>
+    <%= link_to raw('<i class="fa fa-question-circle"></i> <span>Preguntas Frecuentes</span>'),
+                faqs_path,
+                method: :get,
+                class: 'menu-item' %>
+
+    <div class="menu-item dropdown">
+      <%= link_to raw('<i class="fa fa-link"></i> <span>Links de Interés</span>'), '#' %>
+      <ul>
+        <%= link_to '<li>Nueva Malla</li>'.html_safe,
+                    "http://www.ing.puc.cl/alumnos/plan-de-estudios/descripcion/",
+                    target: '_blank',
+                    method: :get %>
+        <%= link_to '<li>Planificador Curricular</li>'.html_safe,
+                    'http://planner.ing.puc.cl/curriculo2013',
+                    target: '_blank',
+                    method: :get %>
+        <%= link_to '<li>Quiénes Somos</li>'.html_safe,
+                    about_us_path,
+                    method: :get %>
+        <%= link_to '<li>Desafiando Límites</li>'.html_safe,
+                    'http://www.desafiandolimites.cl',
+                    target: '_blank',
+                    method: :get %>
+        <%= link_to '<li>Central de Apuntes Consejería Superior</li>'.html_safe,
+                    'http://www.ccomparte.cl',
+                    target: '_blank',
+                    method: :get %>
+      </ul>
+    </div>
+  </div>
+</div>

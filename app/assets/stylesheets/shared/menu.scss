@@ -1,0 +1,87 @@
+@import "palette";
+
+.menu-default {
+  background-color: $light-blue;
+
+  .menu-item:hover {
+    background-color: $blue;
+  }
+
+  li {
+    background-color: $light-blue;
+
+    &:hover {
+      background-color: $blue;
+    }
+  }
+}
+
+.menu-dark {
+  background-color: black;
+
+  .menu-item:hover {
+    background-color: gray;
+  }
+
+  li {
+    background-color: black;
+
+    &:hover {
+      background-color: gray;
+    }
+  }
+}
+
+.menu {
+  height: 48px;
+
+  @media (max-width: 768px) {
+    .fa + span {
+      display: none;
+    }
+  }
+
+  a,
+  .fa,
+  span {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .menu-item {
+    position: relative;
+    display: inline-block;
+    height: 48px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 48px;
+    z-index: 100;
+    padding: 0 5px;
+
+    ul {
+      display: none;
+      position: absolute;
+      width: 200px;
+      list-style: none;
+      text-align: left;
+      left: 0;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: block;
+        padding: 7px;
+      }
+
+      .sub-menu {
+        top: 0;
+        left: 200px;
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<h1 class="center-align-space-between">
+  Temas
+  <div>
+    <%= link_to 'Mis Temas',
+                my_topics_path,
+                method: :get,
+                class: 'button-link button-medium green' %>
+    <%= link_to 'Archivados',
+                archived_topics_path,
+                method: :get,
+                class: 'button-link button-medium green' %>
+  </div>
+</h1>
+
+<% @topics.each do |topic| %>
+  <%= render partial: 'topic',
+      locals: { topic: topic,
+                header: 'h3',
+                description: topic.description.capitalize.slice(0..300) } %>
+<% end -%>
+
+<div id="last-row-loader" class="text-center">
+  <i class="fa fa-spin fa-refresh fa-5x"></i>
+</div>
+
+<script type="text/javascript">
+  infiniteScroll('.topics.index');
+</script>

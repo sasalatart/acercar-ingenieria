@@ -1,0 +1,30 @@
+<div class='row'>
+  <div class='col-sm-3'>
+    <h1>Acciones</h1>
+    <div class="center-align">
+      <% if Rule.virtual_rooms.any? %>
+        <%= link_to 'Instrucciones', '#',
+                    data: { toggle: 'modal', target: '#rules' },
+                    class: 'button-link button-medium green' %>
+      <% end %>
+
+      <%= link_to 'Nueva Sala', new_virtual_room_path,
+                  method: :get,
+                  class: 'button-link button-medium' %>
+    </div>
+    <%= render 'filters' %>
+  </div>
+  <div class='col-sm-6'>
+    <%= render 'distinguished_sections/tabs' %>
+    <%= render 'virtual_room_list' %>
+  </div>
+  <div class='col-sm-3'>
+    <%= render 'soon' %>
+  </div>
+</div>
+
+<% if Rule.virtual_rooms.any? %>
+  <%= render partial: 'rules/modal',
+             locals: { title: 'Instrucciones de las Salas Virtuales',
+                       content: Rule.virtual_rooms.first.content } %>
+<% end %>

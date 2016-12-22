@@ -1,0 +1,16 @@
+<% if @major %>
+  <h1 class="center-align-space-between">
+    Artículos de <%= @major.name %>
+
+    <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver al Major".html_safe,
+                @major,
+                method: :get,
+                class: 'button-link button-medium' if @major %>
+  </h1>
+<% else %>
+  <h1 class="center-align-space-between">Artículos</h1>
+<% end %>
+
+<div id="articles-index">
+  <%= render 'article_list' %>
+</div>

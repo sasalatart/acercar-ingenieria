@@ -1,0 +1,19 @@
+@import "shared/palette";
+
+.resource {
+  border-bottom: 2px dotted $blue;
+
+  .description {
+    margin: 10px 0;
+  }
+
+  .date {
+    margin: 15px 0;
+    color: $blue;
+
+    h2 {
+      color: green;
+      margin: 0;
+    }
+  }
+}

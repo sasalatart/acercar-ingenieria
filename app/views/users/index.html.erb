@@ -1,0 +1,67 @@
+<h1 class="center-align-space-between">
+  Usuarios
+
+  <%= render 'shared/search_bar' %>
+
+  <a href="#" class="button-link button-medium" data-toggle="modal" data-target="#import-users">
+    Importar usuarios
+  </a>
+</h1>
+
+<table id="list" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Generación</th>
+      <th>e-Mail</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.first_name, user_path(user) %></td>
+        <td><%= link_to user.last_name, user_path(user) %></td>
+        <td><%= link_to user.generation, user_path(user) %></td>
+        <td><%= link_to user.email, user_path(user) %></td>
+        <td>
+          <%= link_to 'Eliminar', user_path(user),
+                      class: 'button-link button-inline red',
+                      method: :delete,
+                      data: { confirm: '¿Está seguro?' } if user != current_user %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="modal fade" id="import-users" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Importar usuarios</h4>
+      </div>
+      <div class="modal-body center-align flex-column">
+        <p class="justify-text">
+          El archivo a importar debe ser como el siguiente ejemplo, respetando
+          los nombres de sus columnas, y sus posiciones:
+        </p>
+
+        <%= image_tag 'import_example.png' %>
+
+        <%= form_tag users_import_path, class: 'form-inline', multipart: true do %>
+          <div class="form-group">
+            <%= file_field_tag :file, class: 'form-control', required: true %>
+
+            <%= submit_tag 'Importar',
+                           class: 'button-link button-medium',
+                           title: 'El archivo debe contener las siguientes columnas: Nombre, Apellido, Generacion e Email, desde la primera fila y primera columna.',
+                           rel: 'tooltip', "data-placement" => 'top' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

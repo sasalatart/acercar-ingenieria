@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: acercar-ingenieria_development
+
+test:
+  <<: *default
+  database: acercar-ingenieria_test
+
+production:
+  <<: *default
+  host    : postgres_db
+  database: acercar-ingenieria_production

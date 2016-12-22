@@ -1,0 +1,59 @@
+<%= form_for @topic do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :title, 'Título', class: 'control-label' %>
+      <%= f.text_field :title, class: 'form-control', required: true %>
+      <%= f.errors :title %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :description, 'Descripción', class: 'control-label' %>
+      <%= f.text_area :description, class: 'form-control', required: true %>
+      <%= f.errors :description %>
+    </div>
+  </div>
+
+  <% if @topic.new_record? and (current_user.admin? || MajorAdmin.where(user_id: current_user.id).any?) %>
+    <div class="row">
+      <div class="form-group col-sm-12">
+        <fieldset>
+          <legend>
+            <%= label :user_admin_rank, 'Publicar como administrador de:' %>
+          </legend>
+          <div class="center-align-space-around">
+            <% if (user_signed_in? and current_user.admin?) %>
+              <div class="flex-column center-align">
+                <%= f.radio_button :user_admin_rank, '-1' %>
+                <p>Acercar Ingeniería</p>
+              </div>
+            <% end %>
+            <% MajorAdmin.where(user_id: current_user.id).each do |major_admin| %>
+              <% major_name = Major.find_by(id: major_admin.major_id).name %>
+              <div class="flex-column center-align">
+                <%= f.radio_button :user_admin_rank, "#{major_admin.major_id}" %>
+                <p><%= major_name %></p>
+              </div>
+            <% end %>
+            <div class="flex-column center-align">
+              <%= f.radio_button :user_admin_rank, '0' %>
+              <p>Usuario Común</p>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <%= f.label :tags, 'Tags' %>
+      <%= render partial: 'tags/tag_accordion', locals: { name: 'topic[tag_ids][]', id: 'topic_tag_ids_' } %>
+    </div>
+  </div>
+
+  <div class="center-align">
+    <%= f.submit '¡Listo!', class: 'button-link button-large' %>
+  </div>
+<% end %>

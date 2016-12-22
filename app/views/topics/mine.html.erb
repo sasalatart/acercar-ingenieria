@@ -1,0 +1,26 @@
+<h1 class="center-align-space-between">
+  Mis Temas
+
+  <%= render 'shared/search_bar' %>
+
+  <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver".html_safe,
+              topics_path,
+              method: :get,
+              class: 'button-link button-medium' %>
+</h1>
+
+<table id="list" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-9">Título</th>
+      <th class="col-md-3">Fecha de publicación</th>
+    </tr>
+  </thead>
+
+  <% @topics.each do |topic| %>
+    <tr>
+      <td><%= link_to "#{topic.title}", topic_path(topic) %></td>
+      <td><%= link_to "#{topic.created_at.to_date.to_s}", topic_path(topic) %></td>
+    </tr>
+  <% end %>
+</table>

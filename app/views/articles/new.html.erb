@@ -1,0 +1,17 @@
+<h1 class="center-align-space-between">
+  Crear Nuevo Artículo
+
+  <% if @major %>
+    <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver al Major".html_safe,
+                major_path(@major),
+                method: :get,
+                class: 'button-link button-medium' %>
+  <% else %>
+    <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver a Artículos".html_safe,
+                articles_path,
+                method: :get,
+                class: 'button-link button-medium' %>
+  <% end %>
+</h1>
+
+<%= render 'form' %>

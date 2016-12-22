@@ -1,0 +1,92 @@
+@import "palette";
+
+.admin-bar {
+  background-color: black;
+  font-size: 17px;
+}
+
+.header {
+  height: 100px;
+  background-color: $lightest-blue;
+
+  @media (max-width: 768px) {
+    .logo h1,
+    .fa + span {
+      display: none;
+    }
+  }
+
+  a,
+  a:hover,
+  a:visited {
+    text-decoration: none;
+
+    &.button-link {
+      font-size: 1.25em;
+    }
+  }
+
+  .logo {
+    margin-left: 75px;
+
+    h1 {
+      background-color: transparent;
+      color: white;
+      line-height: 32px;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .user-menu {
+    margin-right: 75px;
+
+    form {
+      width: auto;
+      margin: 0;
+
+      .form-group {
+        margin: 0;
+
+        .input-group {
+          margin: 5px 0;
+
+          span.input-group-addon {
+            width: 25px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            padding: 5px;
+            margin: 0;
+          }
+
+          input[type="email"],
+          input[type="password"] {
+            width: 175px;
+            height: 26px;
+          }
+        }
+      }
+
+      /*
+      input:not([type="button"]), input:not([type="submit"]) {
+        border-radius: 5px;
+        padding: 0 5px;
+      }*/
+
+      input[type=checkbox] {
+        width: 20px;
+        margin: 0 !important;
+      }
+
+      label {
+        color: white;
+        margin: 0 5px 0 0;
+      }
+
+      a {
+        color: white;
+        margin: 0 0 0 5px;
+      }
+    }
+  }
+}

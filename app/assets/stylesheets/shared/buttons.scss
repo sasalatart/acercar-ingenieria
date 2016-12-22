@@ -1,0 +1,73 @@
+@import "palette";
+
+.button-large {
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 10px;
+  padding: 10px 50px;
+  margin: 2px 7px;
+}
+
+.button-medium {
+  border-radius: 10px;
+  padding: 5px 15px;
+  margin: 2px 7px;
+}
+
+.button-inline {
+  border-radius: 5px;
+  padding: 0 5px;
+  margin: 5px 0;
+}
+
+.red {
+  background-color: darken(red, 10%) !important;
+}
+
+.orange {
+  background-color: $orange !important;
+}
+
+.green {
+  background-color: green !important;
+}
+
+.button-link {
+  display: inline-block;
+  color: #fff;
+  background-color: darken($blue, 10%);
+  outline: none;
+  border: 1px transparent solid;
+  cursor: pointer;
+  font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
+  -webkit-transition: background-color 400ms linear;
+  -moz-transition: background-color 400ms linear;
+  -o-transition: background-color 400ms linear;
+  -ms-transition: background-color 400ms linear;
+  transition: background-color 400ms linear;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #333 !important;
+  }
+
+  &:active {
+    background-color: #000 !important;
+  }
+
+  &:visited {
+    color: white;
+  }
+}
+
+.red-right {
+  float: right;
+  font-size: 20px;
+  color: red!important;
+  margin: 10px 5px 0 0;
+
+  &:hover {
+    background-color: gray;
+  }
+}

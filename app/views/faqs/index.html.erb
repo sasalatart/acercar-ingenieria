@@ -1,0 +1,97 @@
+<%- model_class = Faq -%>
+<h1 class="center-align-space-between">
+  Preguntas frecuentes
+
+  <%= link_to 'Crear pregunta',
+              new_faq_path,
+              class: 'button-link button-medium' if user_signed_in? %>
+</h1>
+
+<div class="panel-group faq" id="answered">
+  <% @frequent_questions.each_with_index do |f, index| %>
+    <% if f.answer %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title center-align-space-between">
+            <a data-toggle="collapse" data-parent="#answered" href="#fq-<%= index %>">
+              <%= f.question %>
+            </a>
+
+            <% if (user_signed_in? && current_user.admin?) %>
+              <div class="faq-admin-panel">
+                <%= link_to 'Editar', edit_faq_path(f) %>
+                <%= link_to 'Eliminar', f, method: :delete, data: { confirm: '¿Está seguro?' } %>
+              </div>
+            <% end -%>
+          </h4>
+        </div>
+        <div id="fq-<%= index %>" class="panel-collapse collapse">
+          <div class="panel-body justify-text">
+            <%= simple_format(f.answer) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<h1>Otras preguntas</h1>
+<% if @other_answered %>
+  <div class="panel-group faq" id="other-answered">
+    <% @other_questions.each_with_index do |f, index| %>
+      <% if f.answer %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title center-align-space-between">
+              <a data-toggle="collapse" data-parent="#other-answered" href="#oq-<%= index %>">
+                <%= f.question %>
+              </a>
+
+              <% if (user_signed_in? && current_user.admin?) %>
+                <div class="faq-admin-panel">
+                  <%= link_to 'Editar', edit_faq_path(f) %>
+                  <%= link_to 'Eliminar', f, method: :delete, data: { confirm: '¿Está seguro?' } %>
+                </div>
+              <% end -%>
+            </h4>
+          </div>
+          <div id="oq-<%= index %>" class="panel-collapse collapse">
+            <div class="panel-body">
+              <%= simple_format(f.answer) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <p><i>Actualmente no hay otras preguntas.</i></p>
+<% end %>
+
+<% if (user_signed_in? && current_user.admin?) %>
+  <h1>Preguntas sin responder</h1>
+  <% if @other_not_answered %>
+    <div class="panel-group faq" id="not-answered">
+      <% @other_questions.each_with_index do |f, index| %>
+        <% unless f.answer %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title center-align-space-between">
+                <%= f.question %>
+
+                <% if (user_signed_in? && current_user.admin?) %>
+                  <div class="faq-admin-panel">
+                    <%= link_to 'Responder', edit_faq_path(f) %>
+                    <%= link_to 'Eliminar', f, method: :delete, data: { confirm: '¿Está seguro?' } %>
+                  </div>
+                <% end -%>
+              </h4>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p><i>Actualmente no hay preguntas sin responder.</i></p>
+  <% end %>
+<% end -%>

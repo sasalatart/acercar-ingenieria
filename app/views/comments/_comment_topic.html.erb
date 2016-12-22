@@ -1,0 +1,18 @@
+<div class="comment <%= comment_topic.id %>">
+  <p class="justify-text">
+    <%= comment_topic.content %>
+  </p>
+
+  <p class="info-subpanel">
+    <%= 'Publicado el ' + comment_topic.created_at.to_date.to_s + ' por ' %>
+    <%= comment_topic.user.complete_name if comment_topic.user %>
+
+    <% if user_signed_in? and (current_user == comment_topic.user or current_user.admin? or @sub_admin) %>
+      <span class="admin-subpanel">
+        <%= link_to 'Editar', edit_topic_comment_path(@commentable, comment_topic) if current_user == comment_topic.user %>
+        <%= link_to 'Eliminar', topic_comment_path(comment_topic.commentable, comment_topic),
+                    method: :delete, remote: true, data: { confirm: '¿Está seguro?' } %>
+      </span>
+    <% end -%>
+  </p>
+</div>

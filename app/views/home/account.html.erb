@@ -1,0 +1,55 @@
+<div id="account">
+  <h1 class="center-align-space-between">
+    <%= current_user.complete_name %>
+    <span>
+      <%= link_to "<i class='fa fa-edit'></i> Editar".html_safe,
+                  edit_user_registration_path,
+                  method: :get,
+                  class: "button-link button-medium orange" %>
+      <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver a Menú Principal".html_safe,
+                  root_path,
+                  method: :get,
+                  class: 'button-link button-medium' %>
+    </span>
+  </h1>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <h2>Tus Majors</h2>
+      <% @majors.each do |major| %>
+        <div class="row center-align">
+          <div class="col-xs-4 col-sm-2">
+            <%= image_tag major.logo(:thumb), class: 'img-responsive' %>
+          </div>
+          <h2 class="col-xs-8 col-sm-10">
+            <%= link_to major.name, major %>
+          </h2>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <% if current_user.admin? || @major_admin.any? || @distinguished_section_admin.any? %>
+        <div class="admin-list">
+          <h2>Además, eres administrador de:</h2>
+
+          <% if current_user.admin? %>
+            <h3><i class="fa fa-star gold-star"></i> Acercar Ingeniería</h3>
+          <% end %>
+
+          <% if @major_admin.any? %>
+            <% @major_admin.each do |major| %>
+              <h3><i class="fa fa-star blue-star"></i> Major de <%= major.name %></h3>
+            <% end %>
+          <% end %>
+
+          <% if @distinguished_section_admin.any? %>
+            <% @distinguished_section_admin.each do |distinguished_section| %>
+              <h3><i class="fa fa-star green-star"></i> Sección Destacada <%= distinguished_section.name %></h3>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

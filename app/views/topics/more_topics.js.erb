@@ -1,0 +1,13 @@
+<% if @topics %>
+  $loader = $('#last-row-loader');
+  $loader.show();
+  setTimeout(function() {
+    <% @topics.each do |topic| %>
+      if ($('[data-id="<%= topic.id %>"]').length == 0) {
+        $('.resource:last').after("<%= j render partial: 'topic', locals: { topic: topic, header: 'h3', description: topic.description.capitalize.slice(0..300) } %>");
+        $('.resource:last').hide().fadeIn(500);
+      }
+    <% end %>
+    $loader.hide('hide');
+  }, 1000);
+<% end %>

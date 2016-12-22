@@ -1,0 +1,53 @@
+<div class="resource">
+  <div class="row center-align">
+    <div class="col-sm-8">
+      <<%= header %>>
+        <%= link_to raw("<i class='fa fa-plus'></i>#{virtual_room.title}"),
+                    virtual_room_path(virtual_room),
+                    method: :get %>
+      </<%= header %>>
+
+      <% if virtual_room.user == current_user %>
+        <%= link_to raw('<i class="fa fa-edit"></i> Editar'),
+                    edit_virtual_room_path(virtual_room),
+                    class: 'button-link button-inline orange' %>
+      <% end -%>
+      <% if virtual_room.user == current_user || (user_signed_in? && current_user.admin?) %>
+        <%= archive_button(virtual_room, toggle_status_virtual_room_path(virtual_room))  %>
+
+        <%= link_to raw('<i class="fa fa-times"></i> Eliminar'),
+                    virtual_room_path(virtual_room),
+                    method: :delete,
+                    class: 'button-link button-inline red' %>
+      <% end %>
+
+      <%= enrollment_button(current_user, virtual_room) %>
+
+      <p>
+        <%= 'Publicado el ' + virtual_room.created_at.to_date.to_s + ' por ' %>
+        <%= virtual_room.user.complete_name if virtual_room.user %>
+      </p>
+      <% if virtual_room.tags.any? %>
+        <p>
+          Tags:
+          <% virtual_room.tags.each do |tag| %>
+            <%= link_to raw("<i class='fa fa-tags'></i> #{tag.name}"),
+                        virtual_rooms_path(virtual_room: { tag_ids: [tag.id] }),
+                        class: 'tag hover-link', method: :get %>
+          <% end %>
+        </p>
+      <% end %>
+      <p class="description"><%= description %></p>
+    </div>
+
+    <div class="col-sm-4 date center-align flex-column">
+      <% if DateTime.now > virtual_room.date %>
+        <a href="<%= virtual_room.link %>" target="blank" class="button-link button-large">Entrar</a>
+      <% else %>
+        <i class="fa fa-calendar fa-5x"></i><br />
+      <% end %>
+      <h2><%= virtual_room.date.strftime("%d/%m/%y") %></h2>
+      <h2><%= virtual_room.date.strftime("%H:%M") %></h2>
+    </div>
+  </div>
+</div>

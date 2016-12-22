@@ -1,0 +1,33 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "shared/palette";
+
+.home {
+  #carousel-generic {
+    min-width: 100%;
+    min-height: 100%;
+
+    img {
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
+
+  .admin-list h3 {
+    margin-left: 50px;
+  }
+
+  .credits-table td {
+    width: 25%;
+  }
+
+  .border-clear {
+    border: 0;
+    background: transparent;
+    top: 0;
+    right: inherit;
+    left: inherit;
+    margin-top: 0;
+  }
+}

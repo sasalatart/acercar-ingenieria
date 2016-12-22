@@ -1,0 +1,40 @@
+<div class="resource">
+  <<%= header %>>
+    <%= link_to raw("#{get_star topic.user_admin_rank}#{topic.title}"),
+                topic_path(topic),
+                method: :get %>
+  </<%= header %>>
+  <% if topic.user == current_user %>
+    <%= link_to raw('<i class="fa fa-edit"></i> Editar'),
+                edit_topic_path(topic),
+                class: 'button-link button-inline orange' %>
+  <% end -%>
+  <% if topic.user == current_user || (user_signed_in? && current_user.admin?) %>
+    <%= archive_button(topic, toggle_status_topic_path(topic))  %>
+
+    <%= link_to raw('<i class="fa fa-times"></i> Eliminar'),
+                topic_path(topic),
+                method: :delete,
+                class: 'button-link button-inline red' %>
+  <% end %>
+
+  <%= enrollment_button(current_user, topic) %>
+
+  <%= raw("<i class='fa fa-eye'></i> #{topic.views}") %>
+  <%= raw("<i class='fa fa-comments-o'></i> #{topic.comments.count}") %>
+  <p>
+    <%= 'Publicado el ' + topic.created_at.to_date.to_s + ' por ' %>
+    <%= topic.user.complete_name if topic.user %>
+  </p>
+  <% if topic.tags.any? %>
+    <p>
+      Tags:
+      <% topic.tags.each do |tag| %>
+        <%= link_to raw("<i class='fa fa-tags'></i> #{tag.name}"),
+                    topics_path(topic: { tag_ids: [tag.id] }),
+                    class: 'tag hover-link', method: :get %>
+      <% end %>
+    </p>
+  <% end %>
+  <p class="description"><%= description %></p>
+</div>

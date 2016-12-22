@@ -1,0 +1,32 @@
+@import "palette";
+
+.footer {
+  height: 110px;
+  color: black;
+  background-color: $lightest-blue;
+  bottom: 0;
+
+  @media (max-width: 768px) {
+    .sponsors {
+      display: none;
+    }
+  }
+
+  h5 {
+    color: white;
+  }
+
+  img {
+    height: 64px !important;
+    margin-right: 20px;
+  }
+
+  p {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .contact-us {
+    margin: 5px 10px;
+  }
+}

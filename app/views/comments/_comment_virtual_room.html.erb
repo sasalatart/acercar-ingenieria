@@ -1,0 +1,18 @@
+<div class="comment <%= comment_virtual_room.id %>">
+  <p class="justify-text">
+    <%= comment_virtual_room.content %>
+  </p>
+
+  <p class="info-subpanel">
+    <%= 'Publicado el ' + comment_virtual_room.created_at.to_date.to_s + ' por ' %>
+    <%= comment_virtual_room.user.complete_name if comment_virtual_room.user %>
+
+    <% if user_signed_in? and (current_user == comment_virtual_room.user or current_user.admin? or @sub_admin) %>
+      <span class="admin-subpanel">
+        <%= link_to 'Editar', edit_virtual_room_comment_path(@commentable, comment_virtual_room) if current_user == comment_virtual_room.user %>
+        <%= link_to 'Eliminar', virtual_room_comment_path(comment_virtual_room.commentable, comment_virtual_room),
+                    method: :delete, remote: true, data: { confirm: '¿Está seguro?' } %>
+      </span>
+    <% end -%>
+  </p>
+</div>

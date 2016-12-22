@@ -1,0 +1,24 @@
+<h1>Próximamente</h1>
+
+<table class="table ranking-table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-sm-7 text-center">Sala</th>
+      <th class="col-sm-5 text-center">Fecha</th>
+    </tr>
+  </thead>
+
+  <% @soon.each_with_index do |virtual_room, index| %>
+    <tr>
+      <td>
+        <%= link_to "#{(index + 1)}.- #{virtual_room.title}",
+                    virtual_room_path(virtual_room),
+                    method: :get %>
+      </td>
+      <td class="flex-column">
+        <%= virtual_room.date.strftime("%d/%m/%y") %>
+        <%= virtual_room.date.strftime("%H:%M") %>
+      </td>
+    </tr>
+  <% end %>
+</table>
