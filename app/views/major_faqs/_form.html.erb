@@ -1,0 +1,21 @@
+<%= form_for([@major_faq.major, @major_faq]) do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :question, 'Pregunta', class: 'control-label' %>
+      <%= f.text_area :question, class: 'form-control', required: true %>
+      <%= f.errors :question %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :answer, 'Respuesta', class: 'control-label' %>
+      <%= f.text_area :answer, class: 'form-control', required: true %>
+      <%= f.errors :answer %>
+    </div>
+  </div>
+
+  <div class="center-align">
+    <%= f.submit '¡Listo!', class: 'button-link button-large' %>
+  </div>
+<% end %>

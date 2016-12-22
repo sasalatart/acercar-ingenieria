@@ -1,0 +1,28 @@
+<h1>Majors</h1>
+
+<div class="majors-index">
+  <% @majors.each do |major| %>
+    <div class="major text-center">
+      <%= link_to major do %>
+        <%= image_tag(major.logo.url(:thumb)) %>
+        <h3>
+        <%= major.name %>
+        <% if (user_signed_in? and current_user.admin?) %>
+          (<%= major.users.count %>)
+        <% end -%>
+        </h3>
+      <% end -%>
+
+      <% if (user_signed_in? and current_user.admin?) or @sub_admin %>
+        <div class="center-align">
+          <span class="admin-subpanel">
+            <%= link_to 'Editar', edit_major_path(major) %>
+            <%= link_to 'Eliminar', major,
+                        method: :delete,
+                        data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end -%>
+    </div>
+  <% end -%>
+</div>

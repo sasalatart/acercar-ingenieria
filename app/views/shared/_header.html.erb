@@ -1,0 +1,64 @@
+<div class="header container-fluid">
+  <div class="header container">
+    <div class="center-align-space-between">
+      <div class="logo">
+        <%= link_to root_path, class: 'center-align' do %>
+          <%= image_tag("logo_acercar.png", width: "100", class: "img-responsive") %>
+          <h1>
+            ACERCAR</br>
+            INGENIERÍA
+          </h1>
+        <% end -%>
+      </div>
+      <div class="user-menu">
+        <% if user_signed_in? %>
+        <div class="logged-in">
+          <% if current_user.notifications.not_read.any? %>
+            <%= link_to "<i class='fa fa-envelope'></i> <span class='badge'>#{current_user.notifications.not_read.size}</span>".html_safe,
+                        user_notifications_path(current_user),
+                        class: 'button-link button-medium orange',
+                        title: 'Notificaciones', rel: 'tooltip', "data-placement" => 'top' %>
+          <% else %>
+            <%= link_to "<i class='fa fa-envelope'></i>".html_safe,
+                        user_notifications_path(current_user),
+                        class: 'button-link button-medium',
+                        title: 'Notificaciones', rel: 'tooltip', "data-placement" => 'top'%>
+          <% end %>
+          <%= link_to "<i class='fa fa-user'></i> <span>#{current_user.first_name}</span>".html_safe,
+                      account_path,
+                      method: :get,
+                      class: 'button-link button-medium' %>
+          <%= link_to "<i class='fa fa-sign-out'></i> <span>Salir</span>".html_safe,
+                      destroy_user_session_path,
+                      method: :delete,
+                      class: 'button-link button-medium' %>
+        </div>
+        <% else %>
+          <%= form_for :user, url: session_path(:user), html: { class: 'center-align' } do |f| %>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <%= f.email_field :email, class: 'form-control',
+                                  placeholder: 'Correo UC', required: true %>
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <%= f.password_field :password, class: 'form-control',
+                                      placeholder: 'Contraseña', required: true %>
+              </div>
+              <div class="super-checkbox center-align">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me, 'Recordarme' %>
+              </div>
+            </div>
+            <div class="center-align flex-column">
+              <%= f.submit 'Ingresar', class: 'button-link button-large' %>
+              <%= link_to 'Crear cuenta', new_user_registration_path %>
+              <%= link_to '¿Primera vez que ingresas?', new_user_password_path %>
+            </div>
+          <% end %>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>

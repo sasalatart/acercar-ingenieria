@@ -1,0 +1,21 @@
+postgres_db:
+  image: postgres:9.5.0
+
+web:
+  build: .
+  command: rails server puma -b 0.0.0.0
+  ports:
+    - '80:3000'
+    - '443:3000'
+  links:
+    - postgres_db
+  environment:
+    - SECRET_KEY_BASE
+    - AI_EMAIL_USERNAME
+    - AI_EMAIL_PASSWORD
+    - RAILS_SERVE_STATIC_FILES=true
+    - RAILS_LOG_TO_STDOUT=true
+    - AI_HOST
+    - AI_PORT
+  volumes:
+    - ./volumes/acercar-ingenieria:/usr/src/app/public/system

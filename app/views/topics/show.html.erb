@@ -1,0 +1,8 @@
+<%= render partial: 'topic',
+           locals: { topic: @topic, header: 'h1', description: @topic.description } %>
+
+<div id="comments">
+  <%= render partial: 'comments/comments', locals: { target: 'comment_topic' } %>
+</div>
+
+<%= render partial: 'comments/new_comment', locals: { commentable: @topic } %>

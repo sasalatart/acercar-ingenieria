@@ -1,0 +1,31 @@
+<%= devise_error_messages! %>
+
+<h1>Iniciar Sesión</h1>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-offset-4 col-sm-4">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, required: true, class: "form-control" %>
+      <%= f.errors :email %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-offset-4 col-sm-4">
+      <%= f.label 'Contraseña' %>
+      <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control" %>
+      <%= f.errors :password %>
+    </div>
+  </div>
+
+  <div class="center-align-space-around">
+    <%= f.submit 'Iniciar Sesión', class: "button-link button-large" %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

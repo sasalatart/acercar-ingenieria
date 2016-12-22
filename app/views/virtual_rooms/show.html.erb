@@ -1,0 +1,8 @@
+<%= render partial: 'virtual_room',
+           locals: { virtual_room: @virtual_room, header: 'h1', description: @virtual_room.description } %>
+
+<div id="comments">
+  <%= render partial: 'comments/comments', locals: { target: 'comment_virtual_room' } %>
+</div>
+
+<%= render partial: 'comments/new_comment', locals: { commentable: @virtual_room } %>

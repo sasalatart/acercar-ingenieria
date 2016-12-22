@@ -1,0 +1,29 @@
+<h1>Tags</h1>
+
+<%= render partial: 'form', locals: { title: 'Crear Tag' } %>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-5">Nombre</th>
+      <th class="col-md-4">Categoría</th>
+      <th class="col-md-3">Acciones</th>
+    </tr>
+  </thead>
+
+  <% @tags.each do |tag| %>
+    <tr>
+      <td><%= tag.name %></td>
+      <td><%= tag.category %></td>
+      <td>
+        <%= link_to raw('<i class="fa fa-edit">Editar</i>'),
+                    edit_tag_path(tag),
+                    class: 'button-link button-inline orange' %>
+
+        <%= link_to raw('<i class="fa fa-remove">Eliminar</i>'),
+                    tag_path(tag),
+                    method: 'delete', class: 'button-link button-inline red' %>
+      </td>
+    </tr>
+  <% end %>
+</table>

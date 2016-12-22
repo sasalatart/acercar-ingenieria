@@ -1,0 +1,28 @@
+<h1 class="center-align-space-between">
+  Temas Archivados
+
+  <%= render 'shared/search_bar' %>
+
+  <%= link_to "<i class='fa fa-arrow-circle-left'></i> Volver".html_safe,
+              topics_path,
+              class: 'button-link button-medium',
+              method: :get %>
+</h1>
+
+<table id="list" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-6">Título</th>
+      <th class="col-md-3">Usuario que lo publicó</th>
+      <th class="col-md-3">Fecha de publicación</th>
+    </tr>
+  </thead>
+
+  <% @topics.each do |topic| %>
+    <tr>
+      <td><%= link_to "#{topic.title}", topic_path(topic) %></td>
+      <td><%= link_to "#{topic.user.complete_name}", "#" %></td>
+      <td><%= link_to "#{topic.created_at.to_date.to_s}", topic_path(topic) %></td>
+    </tr>
+  <% end %>
+</table>

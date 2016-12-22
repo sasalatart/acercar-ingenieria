@@ -1,0 +1,15 @@
+<h1>Filtrar</h1>
+
+<%= form_for :filter, url: virtual_rooms_path, method: 'get' do |f| %>
+  <%= render partial: 'tags/tag_accordion',
+             locals: { name: 'virtual_room[tag_ids][]', id: 'virtual_room_tag_ids_' } %>
+
+  <div class="center-align">
+    <%= f.submit 'Filtrar', class: 'button-link button-medium green' %>
+
+    <%= button_to 'Quitar Filtro',
+                  topics_path,
+                  method: :get,
+                  class: 'button-link button-medium green' %>
+  </div>
+<% end %>

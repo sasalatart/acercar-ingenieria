@@ -1,0 +1,39 @@
+<div class="footer container-fluid">
+  <div class="center-align-space-between container">
+    <div class="sponsors">
+      <%= link_to image_tag('logo_cai.png', alt: 'logo_cai.png'),
+          'http://www.cai.cl', target: '_blank' %>
+      <%= link_to image_tag('logo_ing.png', alt: 'logo_ing.png'),
+          'http://www.ing.puc.cl', target: '_blank' %>
+      <%= link_to image_tag('logo_uc.png', alt: 'logo_uc.png'),
+          'http://www.uc.cl', target: '_blank' %>
+    </div>
+
+    <div>
+      <%= link_to '<p class="text-center">Tomás Günther</p>
+                   <p class="text-center">Fernando Martínez</p>
+                   <p class="text-center">Sebastián Salata</p>
+                   <p class="text-center">(2014-2015)</p>'.html_safe,
+                   credits_path %>
+    </div>
+
+    <div class="center-align-space-around flex-column">
+      <h5>¡Contáctanos!</h5>
+      <div class="center-align-space-around">
+        <%= link_to '<i class="fa fa-facebook-official fa-3x"></i>'.html_safe,
+                    'http://www.facebook.com/acercaring', target: '_blank',
+                    class: 'contact-us',
+                    title: 'Facebook Acercar Ingeniería', rel: 'tooltip', "data-placement" => 'top' %>
+        <%= link_to '<i class="fa fa-twitter-square fa-3x"></i>'.html_safe,
+                    'https://twitter.com/CAiPUC', target: '_blank',
+                    class: 'contact-us',
+                    title: '@CAiPUC', rel: 'tooltip', "data-placement" => 'top' %>
+        <%= link_to '<i class="fa fa-envelope-square fa-3x"></i>'.html_safe,
+                    'mailto:acercaringenieria@caiuc.cl', target: '_blank',
+                    class: 'contact-us',
+                    title: 'acercaringenieria@caiuc.cl', rel: 'tooltip', "data-placement" => 'top' %>
+      </div>
+      <p>... o ven a nuestra oficina :)</p>
+    </div>
+  </div>
+</div>

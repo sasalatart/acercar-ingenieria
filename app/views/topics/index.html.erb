@@ -1,0 +1,30 @@
+<div class='row'>
+  <div class='col-sm-3'>
+    <h1>Acciones</h1>
+    <div class="center-align">
+      <% if Rule.forum.any? %>
+        <%= link_to 'Instrucciones',
+                    '#',
+                    data: { toggle: 'modal', target: '#rules' },
+                    class: 'button-link button-medium green' %>
+      <% end %>
+      <%= link_to 'Nuevo Tema',
+                  new_topic_path,
+                  method: :get,
+                  class: 'button-link button-medium' %>
+    </div>
+    <%= render 'filters' %>
+  </div>
+  <div class='col-sm-6'>
+    <%= render 'topic_list' %>
+  </div>
+  <div class='col-sm-3'>
+    <%= render 'most' %>
+  </div>
+</div>
+
+<% if Rule.forum.any? %>
+  <%= render partial: 'rules/modal',
+             locals: { title: 'Instrucciones del Foro',
+                       content: Rule.forum.first.content } %>
+<% end %>

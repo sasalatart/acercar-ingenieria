@@ -1,0 +1,14 @@
+<h1>Comentarios</h1>
+
+<div id="comments-view">
+  <% if @comments.any? %>
+    <% @comments.each do |comment| %>
+      <%= render partial: "comments/#{target}", object: comment %>
+    <% end -%>
+    <div class="center-align digg-pagination">
+      <%= will_paginate @comments %>
+    </div>
+  <% else %>
+    <p><i>No hay comentarios.</i></p>
+  <% end %>
+</div>

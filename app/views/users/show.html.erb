@@ -1,0 +1,31 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%= @user.complete_name %></h1>
+</div>
+
+<div class="center-align">
+  <dl class="dl-horizontal">
+    <dt><strong>Nombre:</strong></dt>
+    <dd><%= @user.first_name %></dd>
+    <dt><strong>Apellido:</strong></dt>
+    <dd><%= @user.last_name %></dd>
+    <dt><strong>Generación:</strong></dt>
+    <dd><%= @user.generation %></dd>
+    <dt><strong>e-Mail:</strong></dt>
+    <dd><%= @user.email %></dd>
+    <dt><strong>Current Sign In At:</strong></dt>
+    <dd><%= @user.current_sign_in_at %></dd>
+    <dt><strong>Last Sign In At:</strong></dt>
+    <dd><%= @user.last_sign_in_at %></dd>
+    <dt><strong>Current Sign In IP:</strong></dt>
+    <dd><%= @user.current_sign_in_ip %></dd>
+    <dt><strong>Last Sign In IP:</strong></dt>
+    <dd><%= @user.last_sign_in_ip %></dd>
+  </dl>
+</div>
+<% if user_signed_in? and (@user == current_user or current_user.admin?) %>
+  <div class="center-align">
+    <%= link_to 'Eliminar', user_path(@user), method: :delete,
+                data: { confirm: '¿Está seguro?' }, class: 'button-link button-inline red'%>
+  </div>
+<% end %>

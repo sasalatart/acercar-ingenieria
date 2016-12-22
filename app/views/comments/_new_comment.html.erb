@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <h1>Nuevo Comentario</h1>
+  <%= render partial: 'comments/form',
+             locals: { commentable: @commentable,
+                       comment: Comment.new, remote: true } %>
+<% end %>

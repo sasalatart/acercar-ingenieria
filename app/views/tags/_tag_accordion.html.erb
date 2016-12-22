@@ -1,0 +1,23 @@
+<div class="panel-group" id="tag-accordion">
+  <div class="panel panel-default">
+    <% tag_snake_categories.each do |snake_category| %>
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#tag-accordion" href="#<%= snake_category %>">
+            <i class="fa fa-plus"></i><%= t snake_category %>
+          </a>
+        </h4>
+      </div>
+      <div id="<%= snake_category %>" class="panel-collapse collapse">
+        <div class="panel-body">
+          <% Tag.send(snake_category.to_sym).each do |tag| %>
+            <div class='super-checkbox'>
+              <input type="checkbox" name="<%= name %>" id="<%= id %><%=tag.id%>" value="<%=tag.id%>" >
+              <label for="<%= id %><%=tag.id%>" data-value="<%=tag.id%>"><%=tag.name%></label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

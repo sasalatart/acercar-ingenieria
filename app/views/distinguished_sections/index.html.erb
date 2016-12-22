@@ -1,0 +1,30 @@
+<h1>Secciones Destacadas</h1>
+
+<%= render partial: 'form', locals: { title: 'Crear Sección Destacada' } %>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-3">Nombre</th>
+      <th class="col-md-6">Descripción</th>
+      <th class="col-md-3">Acciones</th>
+    </tr>
+  </thead>
+
+  <% @distinguished_sections.each do |distinguished_section| %>
+    <tr>
+      <td><%= distinguished_section.name %></td>
+      <td><%= distinguished_section.description %></td>
+      <td>
+        <%= link_to raw('<i class="fa fa-edit">Editar</i>'),
+                    edit_distinguished_section_path(distinguished_section),
+                    class: 'button-link button-inline orange' %>
+
+        <%= link_to raw('<i class="fa fa-remove">Eliminar</i>'),
+                    distinguished_section_path(distinguished_section),
+                    method: 'delete',
+                    class: 'button-link button-inline red' %>
+      </td>
+    </tr>
+  <% end %>
+</table>

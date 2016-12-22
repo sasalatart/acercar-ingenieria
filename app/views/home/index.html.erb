@@ -1,0 +1,40 @@
+<div class="center-align">
+  <div id="carousel-generic" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+    <li data-target="#carousel-generic" data-slide-to="0" class="active"></li>
+    <% (@count - 1).times do |i| %>
+    <li data-target="#carousel-generic" data-slide-to="<%= i + 1 %>"></li>
+    <% end -%>
+    </ol>
+    <!-- Wrapper for slides -->
+
+    <% b = 0 %>
+    <div class="carousel-inner">
+      <% @images.each do |image| %>
+        <% if b == 0 %>
+          <div class="item active">
+          <% b = 1 %>
+        <% else %>
+          <div class="item">
+        <% end -%>
+            <div class="index-size">
+              <%= link_to image_tag(image.image(:display), class: 'img-responsive'), image %>
+            </div>
+            <% if (image.title != "" && image.text != "") %>
+              <div class="carousel-caption">
+                <h1><%= image.title %></h1>
+                <p><%= image.text %></p>
+              </div>
+            <% end -%>
+          </div>
+      <% end -%>
+    </div>
+
+    <!-- Controls -->
+    <a href="#carousel-generic" role="button" data-slide="prev"
+      class="center-align carou-arrow left carousel-control icon-a border-clear">←</a>
+    <a href="#carousel-generic" role="button" data-slide="next"
+       class="center-align carou-arrow right carousel-control icon-a border-clear">→</a>
+  </div>
+</div>

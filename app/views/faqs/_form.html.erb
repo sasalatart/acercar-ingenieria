@@ -1,0 +1,35 @@
+<%= form_for @frequent_question, html: { class: 'form-horizontal' } do |f| %>
+  <div class="row">
+    <% if (user_signed_in? and current_user.admin?) %>
+      <div class="form-group col-sm-8">
+        <%= f.label :question, 'Pregunta', class: 'control-label' %>
+        <%= f.text_area :question, class: 'form-control', required: true %>
+        <%= f.errors :question %>
+      </div>
+
+      <div class="form-group col-sm-4 center-align flex-column">
+        <%= f.label :frequent, '¿Pregunta frecuente?'%>
+        <%= f.check_box :frequent, class: "star" %>
+        <%= f.label :frequent, '.'%>
+      </div>
+    <% else %>
+      <div class="form-group col-sm-12">
+        <%= f.label :question, 'Pregunta', class: 'control-label' %>
+        <%= f.text_area :question, class: 'form-control', required: true %>
+        <%= f.errors :question %>
+      </div>
+    <% end -%>
+  </div>
+
+  <% if (user_signed_in? and current_user.admin?) %>
+    <div class="form-group">
+      <%= f.label :answer, 'Respuesta', class: 'control-label' %>
+      <%= f.text_area :answer, class: 'form-control' %>
+      <%= f.errors :answer %>
+    </div>
+  <% end -%>
+
+  <div class="center-align">
+    <%= f.submit '¡Listo!', class: 'button-link button-large' %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<%= form_for [commentable, comment], remote: remote do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :content ,'Contenido', class: 'control-label' %>
+      <%= f.text_area :content, id: 'limited-text', class: 'form-control max-1000', rows: 3, required: true %>
+      <span>0/1000 carácteres</span>
+    </div>
+  </div>
+
+  <div class="center-align">
+    <%= f.submit '¡Listo!', class: 'button-link button-large' %>
+  </div>
+<% end %>

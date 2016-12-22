@@ -1,0 +1,26 @@
+<div class="menu menu-dark container-fluid">
+  <div class="menu menu-dark container center-align-space-between">
+    <%= link_to raw('<i class="fa fa-user-plus"></i> <span>Administradores</span>'),
+                admins_path, class: 'menu-item', method: :get %>
+    <%= link_to raw('<i class="fa fa-users"></i> <span>Usuarios</span>'),
+                users_path, class: 'menu-item', method: :get %>
+    <%= link_to raw('<i class="fa fa-university"></i> <span>Crear Major</span>'),
+                new_major_path, class: 'menu-item', method: :get %>
+    <%= link_to raw('<i class="fa fa-thumb-tack"></i> <span>Anuncios</span>'),
+                landing_photos_path, class: 'menu-item', method: :get %>
+    <%= link_to raw('<i class="fa fa-exclamation-circle"></i> <span>Instrucciones</span>'),
+                rules_path, class: 'menu-item', method: :get %>
+
+    <div class="menu-item dropdown">
+      <i class='fa fa-caret-down'></i> <span>Más Acciones</span>
+      <ul>
+        <%= link_to raw('<li><i class="fa fa-sitemap"></i> <span>Categorías de Artículos</span></li>'),
+                    categories_path, method: :get %>
+        <%= link_to raw('<li><i class="fa fa-tags"></i> <span>Tags</span></li>'),
+                    tags_path, method: :get %>
+        <%= link_to raw('<li><i class="fa fa-video-camera"></i> <span>Secciones Destacadas</span></li>'),
+                    distinguished_sections_path, method: :get %>
+      </ul>
+    </div>
+  </div>
+</div>

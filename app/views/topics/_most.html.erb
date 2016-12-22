@@ -1,0 +1,51 @@
+<h1>Más vistos</h1>
+
+<table class="table ranking-table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-sm-1"></th>
+      <th class="col-sm-8 text-center">Tema</th>
+      <th class="col-sm-3 text-center">Visitas</th>
+    </tr>
+  </thead>
+
+  <% @most_seen.each_with_index do |topic, index| %>
+    <tr>
+      <td class="text-center"><%= index + 1 %></td>
+      <td>
+        <%= link_to "#{get_star topic.user_admin_rank}#{topic.title}".html_safe,
+                    topic_path(topic),
+                    method: :get %>
+      </td>
+      <td class="flex-column text-center">
+        <%= "<span class='badge'><i class='fa fa-eye'></i> #{topic.views}</span>".html_safe %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<h1>Más comentados</h1>
+
+<table class="table ranking-table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th class="col-sm-1"></th>
+      <th class="col-sm-8 text-center">Tema</th>
+      <th class="col-sm-3 text-center">Comentarios</th>
+    </tr>
+  </thead>
+
+  <% @most_commented.each_with_index do |topic, index| %>
+    <tr>
+      <td class="text-center"><%= index + 1 %></td>
+      <td>
+        <%= link_to "#{get_star topic.user_admin_rank}#{topic.title}".html_safe,
+                    topic_path(topic),
+                    method: :get %>
+      </td>
+      <td class="flex-column text-center">
+        <%= "<span class='badge'><i class='fa fa-comments-o'></i> #{topic.comments.size}</span>".html_safe %>
+      </td>
+    </tr>
+  <% end %>
+</table>

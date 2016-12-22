@@ -1,0 +1,21 @@
+<h1>Nuevas notificaciones</h1>
+
+<% if current_user.notifications.not_read.any? %>
+  <ul class="not-read">
+    <% current_user.notifications.not_read.each do |notification| %>
+      <%= render partial: notification, locals: { status: '<i class="fa fa-exclamation"></i>' } %>
+    <% end %>
+  </ul>
+<% else %>
+  <p><i>Usted no tiene nuevas notificaciones.</i></p>
+<% end %>
+<h1>Notificaciones Leídas</h1>
+<% if current_user.notifications.read.any? %>
+  <ul class="read">
+    <% current_user.notifications.read.each do |notification| %>
+      <%= render partial: notification, locals: { status: '<i class="fa fa-check"></i>' } %>
+    <% end %>
+  </ul>
+<% else %>
+  <p><i>Usted no tiene nuevas notificaciones marcadas como leídas.</i></p>
+<% end %>

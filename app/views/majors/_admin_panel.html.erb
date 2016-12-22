@@ -1,0 +1,114 @@
+<% if (user_signed_in? and current_user.admin?) or @sub_admin %>
+  <div class="admin-panel panel-group" id="admin-panel-accordion">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#dmin-panel-accordion" href="#admin-panel">
+            <i class="fa fa-plus"></i>Panel de Administrador
+          </a>
+        </h4>
+      </div>
+      <div id="admin-panel" class="panel-collapse collapse">
+        <div class="center-align-space-around">
+          <%= link_to 'Editar', edit_major_path(@major), class: 'button-link button-medium orange' %>
+          <%= link_to 'Nuevo Artículo', new_major_article_path(@major), class: 'button-link button-medium' %>
+          <%= link_to 'Nueva Pregunta Frecuente', new_major_major_faq_path(@major), class: 'button-link button-medium' %>
+        </div>
+
+        <div class="panel-body">
+          <% if MajorAdmin.where(major: @major).any? %>
+            <div class="panel-group" id="major-admins-accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#major-admins-accordion" href="#admins">
+                      Administradores de este Major
+                    </a>
+                  </h4>
+                </div>
+                <div id="admins" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Apellido</th>
+                          <th>e-mail</th>
+                        </tr>
+
+                        <% MajorAdmin.where(major: @major).includes(:user).each do |ma| %>
+                          <tr>
+                            <td><%= link_to ma.user.first_name, user_path(ma.user) %></td>
+                            <td><%= link_to ma.user.last_name, user_path(ma.user) %></td>
+                            <td><%= link_to ma.user.email, user_path(ma.user) %></td>
+                          </tr>
+                        <% end %>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <% if @major.users.any? %>
+            <div class="panel-group" id="users-accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#users-accordion" href="#users">
+                      Usuarios en este Major
+                    </a>
+                  </h4>
+                </div>
+                <div id="users" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <div class="center-align">
+                      <%= render 'shared/search_bar' %>
+                    </div>
+
+                    <table id="list" class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Apellido</th>
+                          <th>e-mail</th>
+                        </tr>
+
+                        <% @major.users.each do |user| %>
+                          <tr>
+                            <td><%= link_to user.first_name, user_path(user) %></td>
+                            <td><%= link_to user.last_name, user_path(user) %></td>
+                            <td><%= link_to user.email, user_path(user) %></td>
+                          </tr>
+                        <% end %>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <form action="mail" method="post">
+            <fieldset>
+              <legend>Enviar correo a estudiantes de este major</legend>
+              <div class="row">
+                <div class="form-group col-sm-6">
+                  <%= hidden_field_tag :id, @major.id %>
+                  <label for="title" class="control-label">Título</label>
+                  <input type="text" name="title" id="title" class="form-control" required="true">
+                </div>
+              </div>
+              <textarea name="content" id="content" class="ckeditor" required="true"></textarea>
+
+              <div class="center-align-space-around">
+                <%= submit_tag "Enviar", class: "button-link button-large" %>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

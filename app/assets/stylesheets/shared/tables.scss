@@ -1,0 +1,25 @@
+@import "palette";
+
+thead,
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+  border-width: 1px;
+  border-style: solid;
+  border-color: $blue;
+  vertical-align: middle;
+}
+
+.ranking-table {
+  border-width: thick;
+  border-color: $light-blue;
+  border-radius: 5px;
+
+  tbody > tr > td {
+    font-size: 12px;
+    padding: 1px 4px;
+  }
+}

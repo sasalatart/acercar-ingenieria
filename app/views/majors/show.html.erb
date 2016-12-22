@@ -1,0 +1,89 @@
+<%= render 'admin_panel' %>
+
+<div class="page-header row center-align">
+  <div class="col-xs-4 col-sm-2 center-align">
+    <%= image_tag @major.logo.url(:thumb), class: 'img-responsive' %>
+  </div>
+
+  <div class="col-xs-8 col-sm-10">
+    <h1><%= @major.name %></h1>
+    <p class="justify-text"><%= @major.short_description %></p>
+    <h5 id="scroller">
+      <%= link_to "Haz click aquí para ver la descripción completa", "" %>
+    </h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="video col-sm-5">
+    <h1>Video</h1>
+    <iframe src='<%= "https://www.youtube.com/embed/#{@major.video_url_code}" %>' frameborder="0"></iframe>
+  </div>
+  <div class="faq col-sm-7">
+    <h1>Preguntas frecuentes</h1>
+    <div id="questions" class="panel-group">
+      <% @major_faqs.each_with_index do |f, index| %>
+        <div class="panel panel-default">
+          <div class="panel-heading center-align-space-between">
+            <h4 class="panel-title">
+              <%= link_to f.question, "#f-#{index}", data: { parent: "#questions", toggle: "collapse" } %>
+            </h4>
+            <% if (user_signed_in? && current_user.admin?) || @sub_admin %>
+              <div class="faq-admin-panel">
+                <%= link_to 'Editar', edit_major_major_faq_path(f.major, f) %>
+                <%= link_to 'Eliminar', [f.major, f], method: :delete, data: { confirm: '¿Está seguro?' } %>
+              </div>
+            <% end %>
+          </div>
+          <div id='<%= "f-#{index}" %>' class="panel-collapse collapse">
+            <div class="panel-body justify-text"><%= f.answer %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<h1 id="major-title">Descripción completa</h1>
+
+<div id="show-major">
+  <div class="text">
+    <p><%= raw @major.description %></p>
+  </div>
+</div>
+
+<div id="articles">
+  <h1>Artículos recientes</h1>
+  <%= link_to 'Ver todos', major_articles_path(@major) %>
+  <% if @major.articles.any? %>
+    <div id="article-content">
+      <% @major.articles.includes([:article_categories, :categories]).order("id desc").limit(10).each do |article| %>
+        <div class="article">
+          <%= link_to [@major, article] do %>
+            <%= image_tag article.image.url(:thumb), size: "150" %>
+            <% if article.categories %>
+              <p><%= article.categories.map(&:name).reduce("") { |full, name| "#{full} #{name}" } %></p>
+            <% end %>
+            <p><%= article.title %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="move-buttons">
+      <div id="left" class="round-button">
+        <%= image_tag "left.png", width: "64" %>
+      </div>
+      <div id="right" class="float-right round-button">
+        <%= image_tag "right.png", width: "64" %>
+      </div>
+    </div>
+  <% else %>
+    <i>Actualmente no hay artículos.</i>
+  <% end %>
+</div>
+
+<div id="comments">
+  <%= render partial: 'comments/comments', locals: { target: 'comment_major' } %>
+</div>
+
+<%= render partial: 'comments/new_comment', locals: { commentable: @major } %>

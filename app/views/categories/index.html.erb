@@ -1,0 +1,29 @@
+<h1>Categorías de Artículos</h1>
+
+<div class="center-align-space-around">
+  <%= render partial: 'form', locals: { title: 'Crear Categoría' } %>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="col-sm-9">Nombre</th>
+      <th class="col-sm-3">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= link_to category.name, category_path(category) %></td>
+        <td>
+          <%= link_to 'Editar', edit_category_path(category),
+                      class: 'button-link button-inline orange' %>
+          <%= link_to 'Eliminar', category_path(category),
+                      method: :delete,
+                      data: { confirm: '¿Está seguro?'},
+                      class: 'button-link button-inline red' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

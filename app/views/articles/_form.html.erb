@@ -1,0 +1,80 @@
+<%= form_for([@article.major, @article]) do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :title, 'Título', class: 'control-label' %>
+      <%= f.text_field :title, class: 'form-control', required: true %>
+      <%= f.errors :title %>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <%= f.label :image, 'Imagen del artículo', class: 'control-label' %>
+      <%= f.file_field :image, class: 'form-control' %>
+      <%= f.errors :image %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :short_description, 'Descripción corta', class: 'control-label' %>
+      <%= f.text_area :short_description, id: 'limited-text', class: 'form-control', required: true %>
+      <%= f.errors :short_description %>
+      <span class="hint">
+        <% if @article.new_record? %>
+          0/200 carácteres
+        <% else %>
+          <%= @article.short_description.length %>/300 carácteres
+        <% end -%>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :categories, 'Categorías', class: 'control-label' %>
+      <% Category.all.each do |category| %>
+        <div class='super-checkbox'>
+          <input type="checkbox" name="article[category_ids][]" id="article_category_ids_<%=category.id%>" value="<%=category.id%>" >
+          <label for="article_category_ids_<%=category.id%>" data-value="<%=category.id%>"><%=category.name%></label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :content, 'Contenido', class: 'control-label' %>
+      <%= f.text_area :content, required: true, class: 'ckeditor' %>
+      <%= f.errors :content %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="attachments" class="form-group col-sm-6">
+      <%= f.label 'documents[]', 'Adjuntos', class: 'control-label' %>
+      <%= file_field_tag 'documents[]', type: :file, multiple: true, class: 'form-control' %>
+      <span class="hint">Cada uno debe pesar menos de 5MB.</span>
+    </div>
+  </div>
+
+  <% if @article.attachments %>
+    <div id="attachments">
+      <% @article.attachments.each do |a| %>
+          <div class="attach">
+            <%= image_tag ("clip.png"), size: "25" %>
+            <h5><%= a.document.path.split("/").last %></h5>
+            <%= link_to delete_attachment_path(a.id),
+                        method: :delete,
+                        data: { confirm: '¿Está seguro?' } do %>
+              <span class="red-right">X</span>
+            <% end -%>
+          </div>
+      <% end -%>
+    </div>
+  <% end -%>
+
+  <div class="row">
+    <div class="form-group center-align">
+      <%= f.submit '¡Listo!', class: 'button-link button-large' %>
+    </div>
+  </div>
+<% end %>

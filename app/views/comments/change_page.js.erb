@@ -1,0 +1,2 @@
+$('#comments').html("<%= escape_javascript(render partial: 'comments/comments', locals: { target: target }) %>")
+$('html, body').animate({ scrollTop: $("#comments-view").offset().top }, 1000);

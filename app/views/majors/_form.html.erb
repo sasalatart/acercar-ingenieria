@@ -1,0 +1,70 @@
+<%= form_for(@major) do |f| %>
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :name, 'Nombre', class: 'control-label' %>
+      <%= f.text_field :name, class: 'form-control', required: true %>
+      <%= f.errors :name %>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <%= f.label :logo, 'Logo', class: 'control-label' %>
+      <%= f.file_field :logo, class: 'form-control' %>
+      <%= f.errors :logo %>
+      <% unless @major.new_record? %>
+        <span class="hint">Dejar en blanco si no quiere cambiarlo.</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <%= f.label :category, 'Tipo', class: 'control-label' %>
+      <%= f.select(:category, ['Disciplinario', 'Interdisciplinario'],
+                              { prompt: 'Tipo de Major' },
+                              { class: 'form-control', required: true }) %>
+      <%= f.errors :category %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :short_description, 'Descripción corta', class: 'control-label' %>
+      <%= f.text_area :short_description, id: 'limited-text', class: 'form-control', required: true %>
+      <%= f.errors :short_description %>
+      <span class="hint">
+        <% if @major.new_record? %>
+          0/300 carácteres
+        <% else %>
+          <%= @major.short_description.length  %>/300 carácteres
+        <% end -%>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :description, 'Descripción completa', class: 'control-label' %>
+      <%= f.text_area :description, class: 'form-control ckeditor', required: true %>
+      <%= f.errors :description %>
+      <span class="hint">
+        Esta área de texto se puede agrandar, tomando la esquina inferior derecha.
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <%= f.label :video_url_code, 'ID Video', class: 'control-label' %>
+      <%= f.text_field :video_url_code, class: 'form-control', required: true %>
+      <%= f.errors :video_url_code %>
+      <span class="hint">
+        Aquí se ingresa el ID del video, es decir, si el video es
+        'https://www.youtube.com/watch?v=<b>abcd1234</b>' el ID es '<b>abcd1234</b>'
+      </span>
+    </div>
+  </div>
+
+  <div class="center-align">
+    <%= f.submit '¡Listo!', class: 'button-link button-large' %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<h1>Instrucciones</h1>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#tabs-forum" role="tab" data-toggle="tab">Foro</a></li>
+  <li><a href="#tabs-virtual-rooms" role="tab" data-toggle="tab">Salas Virtuales</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="active tab-pane fade in" id="tabs-forum">
+    <% if Rule.forum.any? %>
+      <h2>
+        Instrucciones del Foro
+        <%= link_to '¡Edítalas!',
+                    edit_rule_path(Rule.forum.first, category: Topic.model_name),
+                    class: 'button-link button-inline' %>
+      </h2>
+      <%= Rule.forum.first.content.html_safe %>
+    <% else %>
+      <h2>
+        No hay instrucciones para el foro...
+        <%= link_to '¡Créalas!', new_rule_path(category: Topic.model_name),
+                    class: 'button-link button-large' %>
+      </h2>
+    <% end %>
+  </div>
+  <div class="tab-pane fade" id="tabs-virtual-rooms">
+    <% if Rule.virtual_rooms.any? %>
+      <h2>
+        Instrucciones de las Salas Virtuales
+        <%= link_to '¡Edítalas!',
+                    edit_rule_path(Rule.virtual_rooms.first, category: VirtualRoom.model_name),
+                    class: 'button-link button-inline' %>
+      </h2>
+      <%= Rule.virtual_rooms.first.content.html_safe %>
+    <% else %>
+      <h2>
+        No hay instrucciones para las Salas Virtuales...
+        <%= link_to '¡Créalas!', new_rule_path(category: VirtualRoom.model_name),
+                    class: 'button-link button-large' %>
+      </h2>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<h1 class="center-align-space-between">
+  Secciones Destacadas
+
+  <a href="#" class="button-link button-medium green" data-toggle="modal" data-target="#request-section">
+    Solicitar Una
+  </a>
+</h1>
+
+<div class="distinguished-sections">
+  <ul class="nav nav-tabs" role="tablist">
+    <% DistinguishedSection.all.each do |distinguished_section| %>
+      <% if distinguished_section == DistinguishedSection.all.first %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <a href="#tabs-<%= distinguished_section.id %>" role="tab" data-toggle="tab">
+          <%= distinguished_section.name %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content">
+    <% DistinguishedSection.all.each do |distinguished_section| %>
+      <% if distinguished_section == DistinguishedSection.all.first %>
+        <div class="active tab-pane fade in" id="tabs-<%= distinguished_section.id %>">
+      <% else %>
+        <div class="tab-pane fade" id="tabs-<%= distinguished_section.id %>">
+      <% end %>
+      <% if distinguished_section.virtual_rooms.unarchived.any? %>
+        <p class="justify-text distinguished-section-description">
+          <%= distinguished_section.description %>
+        </p>
+        <% distinguished_section.virtual_rooms.unarchived.each do |virtual_room| %>
+          <div class="center-align-space-between">
+            <%= link_to "<i class='fa fa-video-camera'></i> #{virtual_room.title}".html_safe,
+                        virtual_room_path(virtual_room),
+                        method: :get,
+                        class: 'hover-link' %>
+            <span>
+              <% if DateTime.now > virtual_room.date %>
+                <a href="<%= virtual_room.link %>" target="blank" class="button-link button-inline">
+                  Entrar
+                </a>
+              <% end %>
+              <i class="fa fa-calendar"></i>
+              <%= virtual_room.date.strftime("%d/%m/%y %H:%M") %>
+            </span>
+          </div>
+        <% end %>
+      <% else %>
+        Aún no hay salas virtuales para esta sección destacada...
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'distinguished_sections/request_modal' %>
