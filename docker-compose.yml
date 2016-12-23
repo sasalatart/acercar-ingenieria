@@ -11,8 +11,8 @@ web:
     - postgres_db
   environment:
     - SECRET_KEY_BASE
-    - AI_EMAIL_USERNAME
-    - AI_EMAIL_PASSWORD
+    - MAILGUN_API_KEY
+    - MAILGUN_DOMAIN
     - RAILS_SERVE_STATIC_FILES=true
     - RAILS_LOG_TO_STDOUT=true
     - AI_HOST
