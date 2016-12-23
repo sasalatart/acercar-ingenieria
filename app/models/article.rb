@@ -42,7 +42,7 @@ class Article < ApplicationRecord
   validates :short_description, length: { maximum: 300 }
 
   def add_categories(category_ids)
-    ArticleCategory.delete_all(article: self)
+    ArticleCategory.where(article: self).delete_all
     if category_ids
       categories << Category.where(id: category_ids)
     else

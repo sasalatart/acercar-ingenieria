@@ -80,7 +80,7 @@ class VirtualRoomsController < ApplicationController
   end
 
   def update
-    Tagging.delete_all(taggable_type: @virtual_room.class.name, taggable_id: @virtual_room.id)
+    Tagging.where(taggable_type: @virtual_room.class.name, taggable_id: @virtual_room.id).delete_all
 
     if @virtual_room.update_attributes(virtual_room_params)
       @section.add_virtual_room(current_user, @virtual_room) if @section

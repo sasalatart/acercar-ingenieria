@@ -79,7 +79,7 @@ class TopicsController < ApplicationController
   end
 
   def update
-    Tagging.delete_all(taggable_type: @topic.class.name, taggable_id: @topic.id)
+    Tagging.where(taggable_type: @topic.class.name, taggable_id: @topic.id).delete_all
 
     if @topic.update_attributes(topic_params)
       @topic.add_tags(params[:topic][:tag_ids])
