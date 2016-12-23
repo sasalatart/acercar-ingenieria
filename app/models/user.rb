@@ -70,7 +70,7 @@ class User < ApplicationRecord
   end
 
   def add_majors(major_ids)
-    MajorUser.delete_all(user_id: id)
+    MajorUser.where(user_id: id).delete_all
     return unless major_ids
     majors << Major.where(id: major_ids)
   end
