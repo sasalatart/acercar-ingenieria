@@ -1,13 +1,9 @@
-class UserMailer < ActionMailer::Base
-  def self.major_multiple(users, title, content)
-    users.each do |recipient|
-      major(recipient.email, title, content).deliver
-    end
-  end
-
-  def major(user, title, content)
+class UserMailer < ApplicationMailer
+  def major_multiple(users, title, content)
+    emails = users.collect(&:email).join(',')
     @content = content
-    mail(to: user, subject: title)
+
+    mail(to: emails, subject: title)
   end
 
   def request_distinguished_section(requester, name, description, reasons)
@@ -17,6 +13,7 @@ class UserMailer < ActionMailer::Base
     @reasons = reasons
 
     emails = User.admins.collect(&:email).join(',')
-    mail(to: emails, subject: "#{@requester} ha solicitado la creación de una sección destacada")
+    mail(to: emails,
+         subject: "#{@requester} solicitó la creación de una sección destacada")
   end
 end

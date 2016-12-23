@@ -1,0 +1,15 @@
+<% content_for :greeting do %>
+  <%= 'Estimados Administradores de Acercar Ingeniería:' %>
+<% end %>
+
+<% content_for :body_upper do %>
+  <%= "#{@requester} ha solicitado la creación de una Sección Destacada. Los datos de la solicitud son:" %>
+<% end %>
+
+<% content_for :body_lower do %>
+  <ul>
+    <li><%= "Nombre de la sección: #{@name}" %></li>
+    <li><%= "Descripción de la sección: #{@description}" %></li>
+    <li><%= "Razones para solicitarla: #{@reasons}" %></li>
+  </ul>
+<% end %>
