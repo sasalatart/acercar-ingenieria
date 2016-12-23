@@ -1,5 +1,9 @@
 # Acercar Ingeniería
 
+[![](https://images.microbadger.com/badges/version/sasalatart/acercar-ingenieria.svg)](https://microbadger.com/images/sasalatart/acercar-ingenieria "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/sasalatart/acercar-ingenieria.svg)](https://microbadger.com/images/sasalatart/acercar-ingenieria "Get your own image badge on microbadger.com")
+[![Code Climate](https://codeclimate.com/github/sasalatart/acercar-ingenieria/badges/gpa.svg)](https://codeclimate.com/github/sasalatart/acercar-ingenieria)
+
 > 2014-2015
 
 > Tomás Günther [(<tpgunther@uc.cl>)](mailto:tpgunther@uc.cl)
