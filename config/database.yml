@@ -1,17 +1,22 @@
 default: &default
-  adapter: postgresql
+  adapter : postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-development:
-  <<: *default
-  database: acercar-ingenieria_development
+  pool    : 5
+  timeout : 5000
+  port    : 5432
+  username: postgres
 
 test:
-  <<: *default
+  <<      : *default
+  host    : localhost
   database: acercar-ingenieria_test
 
+development:
+  <<      : *default
+  host    : localhost
+  database: acercar-ingenieria_development
+
 production:
-  <<: *default
+  <<      : *default
   host    : postgres_db
   database: acercar-ingenieria_production
