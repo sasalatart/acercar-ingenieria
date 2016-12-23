@@ -58,7 +58,7 @@ class MajorsController < ApplicationController
   end
 
   def send_email
-    UserMailer.major_multiple(@major.users, params[:title], params[:content])
+    UserMailer.major_multiple(@major.users, params[:title], params[:content]).deliver
     redirect_to :back, notice: 'Correos enviados con éxito.'
   end
 

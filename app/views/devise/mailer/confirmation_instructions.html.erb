@@ -1,6 +1,13 @@
-<p><%= "Bienvenido #{@resource.email}!" %></p>
+<% content_for :greeting do %>
+  <%= "¡Bienvenido #{@resource.email}!" %>
+<% end %>
 
-<p><%= "Por favor confirme su correo en el siguiente link:" %></p>
+<% content_for :body_upper do %>
+  <%= 'Por favor confirma tu correo electrónico en el siguiente enlace:' %>
+<% end %>
 
-<p><%= link_to 'Confirmar mi cuenta',
-               confirmation_url(@resource, :confirmation_token => @token) %></p>
+<% content_for :call_to_action do %>
+  <%= render partial: '/layouts/mailer_call_to_action',
+             locals: { href: confirmation_url(@resource, confirmation_token: @token),
+                       button_text: 'Confirmar mi cuenta' } %>
+<% end %>
