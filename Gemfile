@@ -26,6 +26,8 @@ gem 'annotate'
 gem 'devise'
 gem 'paperclip', '~> 4.2'
 
+gem 'mailgun_rails'
+
 gem 'will_paginate', '~> 3.0.6'
 
 gem 'roo', '~> 2.1.0'

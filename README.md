@@ -23,8 +23,8 @@
 Environment Variables:
 
  * **SECRET_KEY_BASE**: *used for verifying the integrity of signed cookies*
- * **AI_EMAIL_USERNAME**: *the GMail powered user mail*
- * **AI_EMAIL_PASSWORD**: *the GMail powered user mail's password*
+ * **MAILGUN_API_KEY**: *your Mailgun API key*
+ * **MAILGUN_DOMAIN**: *your Mailgun domain*
  * **AI_HOST**: *the app host*
  * **AI_PORT**: *the app port*
 
@@ -43,8 +43,8 @@ Environment Variables:
 ```sh
 # Set the required environment variables
 $ export SECRET_KEY_BASE=anystring
-$ export AI_EMAIL_USERNAME="your-application's-email"
-$ export AI_EMAIL_PASSWORD="your-application's-email-password"
+$ export MAILGUN_API_KEY="your-mailgun-api-key"
+$ export MAILGUN_DOMAIN="your-mailgun-domain"
 $ export AI_HOST="your-application's-host"
 $ export AI_PORT="your-application's-port"
 
