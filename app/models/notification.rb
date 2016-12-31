@@ -3,9 +3,9 @@
 # Table name: notifications
 #
 #  id                     :integer          not null, primary key
-#  read                   :boolean
+#  read                   :boolean          default("false")
 #  action                 :string
-#  notificator_admin_rank :integer
+#  notificator_admin_rank :integer          default("0")
 #  user_id                :integer
 #  notificator_id         :integer
 #  notifyable_type        :string
