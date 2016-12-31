@@ -2,15 +2,16 @@
 #
 # Table name: virtual_rooms
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  description :text
-#  link        :string
-#  date        :datetime
-#  status      :string           default("unarchived")
-#  user_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id             :integer          not null, primary key
+#  title          :string
+#  description    :text
+#  link           :string
+#  date           :datetime
+#  status         :string           default("unarchived")
+#  user_id        :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  comments_count :integer          default("0")
 #
 
 class VirtualRoom < ApplicationRecord
@@ -23,11 +24,9 @@ class VirtualRoom < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifyable, dependent: :destroy
 
-  default_scope { order('id DESC') }
-
-  scope :archived, -> { where(status: ARCHIVED_STATUS).order('id DESC') }
-  scope :unarchived, -> { where(status: UNARCHIVED_STATUS).order('id DESC') }
-  scope :soonest, -> { unarchived.where('date > ?', DateTime.now).order('date desc') }
+  scope :archived, -> { where(status: ARCHIVED_STATUS) }
+  scope :unarchived, -> { where(status: UNARCHIVED_STATUS) }
+  scope :soonest, -> { unarchived.where('date > ?', DateTime.now).order('date') }
 
   validates_presence_of :title, :description, :link, :date
 

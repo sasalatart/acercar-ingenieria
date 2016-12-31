@@ -17,7 +17,7 @@ class Comment < ApplicationRecord
   after_create :enroll_and_notify
 
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true
 
   validates :content, presence: true,
                       length: { maximum: 1000 }
