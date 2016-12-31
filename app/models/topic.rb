@@ -2,14 +2,16 @@
 #
 # Table name: topics
 #
-#  id              :integer          not null, primary key
-#  title           :string
-#  description     :text
-#  status          :string           default("unarchived")
-#  user_admin_rank :integer
-#  user_id         :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                :integer          not null, primary key
+#  title             :string
+#  description       :text
+#  status            :string           default("unarchived")
+#  user_admin_rank   :integer
+#  user_id           :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  impressions_count :integer          default("0")
+#  comments_count    :integer          default("0")
 #
 
 class Topic < ApplicationRecord
@@ -29,10 +31,10 @@ class Topic < ApplicationRecord
 
   validate :valid_admin_rank
 
-  default_scope { order('id DESC') }
-
   scope :archived, -> { where(status: ARCHIVED_STATUS) }
   scope :unarchived, -> { where(status: UNARCHIVED_STATUS) }
+  scope :most_seen, -> { unarchived.order('impressions_count DESC') }
+  scope :most_commented, -> { unarchived.order('comments_count DESC') }
 
   def views
     impressions.size

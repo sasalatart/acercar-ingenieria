@@ -6,17 +6,16 @@ class TopicsController < ApplicationController
   TO_DISPLAY = 10
 
   def index
-    all_topics = Topic.all.includes([:user, :tags])
-
-    @most_seen = all_topics.unarchived.sort_by(&:views).reverse[0, 10]
-    @most_commented = all_topics.unarchived.sort_by { |topic| topic.comments.size }.reverse[0, 10]
+    @topics = Topic.includes([:user, :tags]).unarchived.order('id DESC')
+    @most_seen = Topic.most_seen.limit(TO_DISPLAY)
+    @most_commented = Topic.most_commented.limit(TO_DISPLAY)
 
     @filtered = !!(params[:topic] && params[:topic][:tag_ids])
     if @filtered
       @tags = params[:topic][:tag_ids].to_a
-      @topics = all_topics.unarchived.tagged_with(@tags)[0, TO_DISPLAY]
+      @topics = @topics.tagged_with(@tags)[0, TO_DISPLAY]
     else
-      @topics = all_topics.unarchived[0, TO_DISPLAY]
+      @topics = @topics.limit(TO_DISPLAY)
     end
 
     gon.push(filtered: @filtered,
@@ -26,20 +25,22 @@ class TopicsController < ApplicationController
   end
 
   def more_topics
+    @topics = Topic.includes([:user, :tags]).unarchived.order('id DESC')
+
     offset = params[:resource][:offset].to_i
     if params[:resource][:filtered] == 'true'
-      @topics = Topic.unarchived.tagged_with(params[:resource][:tag_ids])[offset, TO_DISPLAY]
+      @topics = @topics.tagged_with(params[:resource][:tag_ids])[offset, TO_DISPLAY]
     else
-      @topics = Topic.unarchived[offset, TO_DISPLAY]
+      @topics = @topics.limit(TO_DISPLAY).offset(offset)
     end
   end
 
   def index_archived
-    @topics = Topic.includes([:user, :tags]).archived.reverse
+    @topics = Topic.includes(:user).archived.order('id DESC')
   end
 
   def mine
-    @topics = Topic.includes([:user, :tags]).where(user: current_user)
+    @topics = Topic.includes(:user).where(user: current_user).order('id DESC')
   end
 
   def show

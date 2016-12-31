@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221184559) do
+ActiveRecord::Schema.define(version: 20161231203726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,13 @@ ActiveRecord::Schema.define(version: 20161221184559) do
     t.text     "short_description"
     t.text     "content"
     t.integer  "major_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "comments_count",     default: 0
     t.index ["major_id"], name: "index_articles_on_major_id", using: :btree
   end
 
@@ -166,12 +167,13 @@ ActiveRecord::Schema.define(version: 20161221184559) do
     t.text     "description"
     t.text     "short_description"
     t.string   "video_url_code"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.integer  "comments_count",    default: 0
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -216,11 +218,13 @@ ActiveRecord::Schema.define(version: 20161221184559) do
   create_table "topics", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.string   "status",          default: "unarchived"
+    t.string   "status",            default: "unarchived"
     t.integer  "user_admin_rank"
     t.integer  "user_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "impressions_count", default: 0
+    t.integer  "comments_count",    default: 0
     t.index ["user_id"], name: "index_topics_on_user_id", using: :btree
   end
 
@@ -254,10 +258,11 @@ ActiveRecord::Schema.define(version: 20161221184559) do
     t.text     "description"
     t.string   "link"
     t.datetime "date"
-    t.string   "status",      default: "unarchived"
+    t.string   "status",         default: "unarchived"
     t.integer  "user_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "comments_count", default: 0
     t.index ["user_id"], name: "index_virtual_rooms_on_user_id", using: :btree
   end
 

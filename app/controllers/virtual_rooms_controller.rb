@@ -6,15 +6,15 @@ class VirtualRoomsController < ApplicationController
   TO_DISPLAY = 10
 
   def index
-    all_virtual_rooms = VirtualRoom.all.includes([:user, :tags, :taggings])
-    @soon = all_virtual_rooms.soonest[0, 10]
+    @virtual_rooms = VirtualRoom.includes([:user, :tags, :taggings]).unarchived.order('id DESC')
+    @soonest = VirtualRoom.soonest.limit(TO_DISPLAY)
 
     @filtered = !!(params[:virtual_room] && params[:virtual_room][:tag_ids])
     if @filtered
       @tags = params[:virtual_room][:tag_ids].to_a
-      @virtual_rooms = all_virtual_rooms.unarchived.tagged_with(@tags)[0, TO_DISPLAY]
+      @virtual_rooms = @virtual_rooms.tagged_with(@tags)[0, TO_DISPLAY]
     else
-      @virtual_rooms = all_virtual_rooms.unarchived[0, TO_DISPLAY]
+      @virtual_rooms = @virtual_rooms.limit(TO_DISPLAY)
     end
 
     gon.push(filtered: @filtered,
@@ -24,20 +24,22 @@ class VirtualRoomsController < ApplicationController
   end
 
   def more_virtual_rooms
+    @virtual_rooms = VirtualRoom.includes([:user, :tags, :taggings]).unarchived.order('id DESC')
+
     offset = params[:resource][:offset].to_i
     if params[:resource][:filtered] == 'true'
-      @virtual_rooms = VirtualRoom.unarchived.tagged_with(params[:resource][:tag_ids])[offset, TO_DISPLAY]
+      @virtual_rooms = @virtual_rooms.tagged_with(params[:resource][:tag_ids])[offset, TO_DISPLAY]
     else
-      @virtual_rooms = VirtualRoom.unarchived[offset, TO_DISPLAY]
+      @virtual_rooms = @virtual_rooms.limit(TO_DISPLAY).offset(offset)
     end
   end
 
   def index_archived
-    @virtual_rooms = VirtualRoom.archived.reverse
+    @virtual_rooms = VirtualRoom.includes(:user).archived.order('id DESC')
   end
 
   def mine
-    @virtual_rooms = VirtualRoom.where(user: current_user)
+    @virtual_rooms = VirtualRoom.includes(:user).where(user: current_user).order('id DESC')
   end
 
   def show

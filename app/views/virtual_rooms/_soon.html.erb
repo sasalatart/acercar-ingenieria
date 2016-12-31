@@ -8,7 +8,7 @@
     </tr>
   </thead>
 
-  <% @soon.each_with_index do |virtual_room, index| %>
+  <% @soonest.each_with_index do |virtual_room, index| %>
     <tr>
       <td>
         <%= link_to "#{(index + 1)}.- #{virtual_room.title}",
