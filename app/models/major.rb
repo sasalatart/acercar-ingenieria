@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  name              :string
-#  type              :string
+#  category          :string
 #  description       :text
 #  short_description :text
 #  video_url_code    :string

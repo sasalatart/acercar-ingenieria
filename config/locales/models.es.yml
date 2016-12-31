@@ -1,0 +1,61 @@
+es:
+  activerecord:
+    models:
+      user: Usuario
+      article: Artículo
+      attachment: Archivo adjunto
+      category: Categories
+      comment: Comentario
+      distinguished_section: Sección distinguida
+      faq: Pregunta frecuente
+      landing_photo: Imagen de inicio
+      major_faq: Pregunta frecuente de Major
+      rule: Regla
+      topic: Tema
+      virtual_room: Sala virtual
+    attributes:
+      user:
+        first_name: Nombre
+        last_name: Apellido
+        generation: Generación
+      article:
+        title: Título
+        short_description: Descripción breve
+        content: Contenido
+      category:
+        name: Nombre
+      comment:
+        content: Contenido
+      distinguished_section:
+        name: Nombre
+        description: Descripción
+      faq:
+        question: Pregunta
+        answer: Respuesta
+        frequent: Frecuente
+      landing_photo:
+        title: Título
+        text: texto
+      major_faq:
+        question: Pregunta
+        answer: Respuesta
+      major:
+        name: Nombre
+        category: Categoría
+        description: Descripción
+        short_description: Descripción breve
+        video_url_code: URL del video
+      rule:
+        category: Categoría
+        content: Contenido
+      tag:
+        category: Categoría
+        name: Nombre
+      topic:
+        title: Título
+        description: Descripción
+      virtual_room:
+        title: Título
+        description: Descripción
+        date: Fecha
+        status: Estado
