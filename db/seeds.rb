@@ -1,6 +1,3 @@
-STDOUT.puts '¿Desea crear datos falsos para poblar la base de datos? (y/n)'
-fake_data = STDIN.gets.strip
-
 def create_uploaded_image(asset_dir, name, extension)
   path = "#{Rails.root}/app/assets/images/#{asset_dir}/#{name}.#{extension}"
   image_file = File.new(path)
@@ -889,7 +886,7 @@ user = User.new(
 user.skip_confirmation!
 user.save
 
-if fake_data == 'y'
+if ENV['FAKE_DATA']
   all_users = User.all
   all_majors = Major.all
   all_categories = Category.all
