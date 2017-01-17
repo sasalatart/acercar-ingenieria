@@ -10,3 +10,5 @@ RUN apt-get update -qq && \
     bundle exec rake assets:precompile
 
 EXPOSE 3000
+
+CMD ["rails", "server", "puma", "-b", "0.0.0.0"]
