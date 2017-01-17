@@ -6,11 +6,15 @@
     <link rel="shortcut icon" href="/assets/logo_acercar.png"/>
     <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/flatpickr/2.3.4/flatpickr.min.css" rel="stylesheet" type="text/css">
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/flatpickr/2.3.4/flatpickr.min.js" charset="utf-8"></script>
+    <script src="//npmcdn.com/flatpickr/dist/l10n/es.js"></script>
     <%= csrf_meta_tags %>
   </head>
+
   <body class="<%= controller_name %> <%= action_name %>" data-no-turbolink>
     <% if user_signed_in? and current_user.admin? %>
       <%= render 'shared/admin_bar' %>
