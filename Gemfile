@@ -21,8 +21,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'gon'
 gem 'hirb'
 
-gem 'annotate'
-
 gem 'devise'
 gem 'paperclip', '~> 4.2'
 
@@ -40,6 +38,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate'
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
