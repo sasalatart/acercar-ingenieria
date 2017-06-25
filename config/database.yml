@@ -4,7 +4,6 @@ default: &default
   pool    : 5
   timeout : 5000
   port    : 5432
-  username: postgres
 
 test:
   <<      : *default
@@ -20,3 +19,4 @@ production:
   <<      : *default
   host    : postgres_db
   database: acercar-ingenieria_production
+  username: postgres
