@@ -895,7 +895,7 @@ if ENV['FAKE_DATA']
 
   statuses = [Archivable::ARCHIVED_STATUS, Archivable::UNARCHIVED_STATUS]
 
-  500.times do |_i|
+  200.times do |_i|
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
 
@@ -912,13 +912,13 @@ if ENV['FAKE_DATA']
   end
 
   Major.all.each do |major|
-    major.users << all_users.sample(rand(User.count / 5))
-    major.users.sample(3).each { |user| MajorAdmin.create(major: major, user: user) }
+    major.users << all_users.sample(10 + rand(User.count / 10))
+    major.users.sample(2).each { |user| MajorAdmin.create(major: major, user: user) }
   end
 
   puts('Creating Articles...')
 
-  200.times do |index|
+  75.times do |index|
     article = Article.create!(
       major: all_majors.sample,
       title: "#{index}-#{Faker::Lorem.sentence(2)}",
@@ -931,7 +931,7 @@ if ENV['FAKE_DATA']
 
   puts('Creating Topics...')
 
-  100.times do |index|
+  75.times do |index|
     user = all_users.sample
     major_admin = MajorAdmin.find_by(user_id: user.id)
     rank = (user.admin? ? -1 : (major_admin ? major_admin.major.id : 0))
@@ -951,7 +951,7 @@ if ENV['FAKE_DATA']
 
   puts('Creating Virtual Rooms...')
 
-  100.times do |index|
+  50.times do |index|
     user = all_users.sample
 
     virtual_room = VirtualRoom.new(
@@ -978,7 +978,7 @@ if ENV['FAKE_DATA']
   all_virtual_rooms = VirtualRoom.all
   all_commentables = all_majors + all_articles + all_topics + all_virtual_rooms
 
-  2500.times do
+  1500.times do
     comment = Comment.new(
       content: Faker::Lorem.paragraph,
       user: all_users.sample
@@ -990,7 +990,7 @@ if ENV['FAKE_DATA']
 
   puts('Creating Distinguished Section Administrators...')
 
-  10.times do
+  5.times do
     DistinguishedSectionAdmin.create(
       distinguished_section: DistinguishedSection.all.sample,
       user: all_users.sample
